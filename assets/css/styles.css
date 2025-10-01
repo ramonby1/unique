@@ -27,13 +27,16 @@ body{font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Arial,sans-serif;color:
 .cart-link{padding:8px 12px;border:1px solid #eee;border-radius:8px}
 
 /* Hero */
-.hero{background:linear-gradient(180deg,#eef2ff,transparent);padding:70px 0}
+.hero{
+  /* Imagen libre (Unsplash). Cambia la URL cuando quieras */
+  background: linear-gradient(180deg, rgba(238,242,255,.75), rgba(238,242,255,.75)),
+              url("https://images.unsplash.com/photo-1502920514313-52581002a659?q=80&w=2000&auto=format&fit=crop") center/cover no-repeat;
+  padding: 90px 0;
+}
 .hero-inner{text-align:center}
 .hero h1{margin:0 0 10px;font-size:2.2rem}
 .hero p{margin:0 0 20px;color:var(--muted)}
-.search{display:grid;grid-template-columns:2fr repeat(3,1fr) auto;gap:10px;align-items:end;justify-items:stretch}
-.search label{display:flex;flex-direction:column;gap:6px;font-size:.9rem;color:#374151}
-.search input,.search select{height:42px;padding:0 10px;border:1px solid #e5e7eb;border-radius:10px;background:#fff}
+
 
 /* Cards */
 .grid{display:grid;gap:20px}
