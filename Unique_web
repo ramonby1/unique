@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mi sitio</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 40px; line-height: 1.6; }
+    .btn { display: inline-block; padding: 10px 16px; border-radius: 8px; background: #111; color: #fff; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <h1>¡Funciona!</h1>
+  <p>Este sitio está publicado con GitHub Pages.</p>
+  <a class="btn" href="#">Un botón</a>
+</body>
+</html>
