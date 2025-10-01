@@ -16,28 +16,11 @@
         <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">☰</button>
 
         <ul id="nav-menu" class="menu">
-          <!-- Destinations (mega) -->
-          <li class="mega has-dropdown" id="destinations-nav">
-            <a href="#" class="mega-trigger">Destinations</a>
-            <div class="mega-panel" role="menu" aria-label="Destinations">
-              <div class="mega-inner">
-                <!-- Level 1 -->
-                <aside class="mega-col l1" aria-label="Regions">
-                  <ul id="dest-l1" class="menu-plain"></ul>
-                </aside>
-                <!-- Level 2 -->
-                <section class="mega-col l2" aria-label="Areas">
-                  <h4 id="dest-l2-title">Select a region</h4>
-                  <ul id="dest-l2" class="menu-plain"></ul>
-                </section>
-              </div>
-            </div>
-          </li>
-
-          <!-- Getaways (simple link to listing) -->
+          <!-- Destinations now goes to a page -->
+          <li><a href="destinations.html">Destinations</a></li>
           <li><a href="listing.html">Getaways</a></li>
 
-          <!-- 24/7 Help dropdown -->
+          <!-- 24/7 Help -->
           <li class="has-dropdown">
             <a href="#">24/7 Help</a>
             <ul class="dropdown">
@@ -47,18 +30,18 @@
             </ul>
           </li>
 
-          <!-- Language -->
+          <!-- Language (flag reflects current) -->
           <li class="has-dropdown">
-            <a href="#" aria-label="Language">🌐</a>
+            <a href="#" id="lang-current" aria-label="Language">🌐</a>
             <ul class="dropdown">
-              <li><a href="#" data-lang="en">English</a></li>
-              <li><a href="#" data-lang="es">Español</a></li>
+              <li><a href="#" data-lang="en">English 🇬🇧</a></li>
+              <li><a href="#" data-lang="es">Español 🇪🇸</a></li>
             </ul>
           </li>
 
-          <!-- Currency -->
+          <!-- Currency (symbol reflects current) -->
           <li class="has-dropdown">
-            <a href="#" aria-label="Currency">💱</a>
+            <a href="#" id="cur-current" aria-label="Currency">£</a>
             <ul class="dropdown">
               <li><a href="#" data-cur="GBP">GBP £</a></li>
               <li><a href="#" data-cur="EUR">EUR €</a></li>
@@ -75,8 +58,8 @@
             </ul>
           </li>
 
-          <!-- Cart -->
-          <li><a class="cart-link" href="checkout.html">Cart <span id="cart-count">0</span></a></li>
+          <!-- Cart with icon -->
+          <li><a class="cart-link" href="checkout.html">🛒 Cart <span id="cart-count">0</span></a></li>
         </ul>
       </nav>
     </div>
@@ -89,19 +72,34 @@
         <h1>Unique getaways at the best price</h1>
         <p>Find your next experience with stays, spa and more.</p>
 
+        <!-- Search with Tesco-style two-level dropdown embedded in Destination -->
         <form class="search" action="listing.html" method="get">
-          <label class="has-suggest">
+          <label class="has-mega">
             <span>Destination</span>
             <input id="destino" type="text" name="q" placeholder="City or region" autocomplete="off" />
-            <div id="destino-suggest" class="suggest"></div>
+            <!-- Solid background, stays open while hovering -->
+            <div class="mega-panel solid" id="form-destinations" role="menu" aria-label="Destinations">
+              <div class="mega-inner">
+                <!-- Level 1 -->
+                <aside class="mega-col l1" aria-label="Regions">
+                  <ul id="dest-l1" class="menu-plain"></ul>
+                </aside>
+                <!-- Level 2 -->
+                <section class="mega-col l2" aria-label="Areas">
+                  <h4 id="dest-l2-title">Select a region</h4>
+                  <ul id="dest-l2" class="menu-plain"></ul>
+                </section>
+              </div>
+            </div>
           </label>
+
           <label>
             <span>Check-in</span>
-            <input type="date" name="checkin" />
+            <input id="checkin" type="text" inputmode="numeric" placeholder="dd/mm/yyyy" name="checkin" maxlength="10" />
           </label>
           <label>
             <span>Check-out</span>
-            <input type="date" name="checkout" />
+            <input id="checkout" type="text" inputmode="numeric" placeholder="dd/mm/yyyy" name="checkout" maxlength="10" />
           </label>
           <label>
             <span>Guests</span>
