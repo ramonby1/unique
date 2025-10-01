@@ -1,12 +1,59 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Mi sitio</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Unique — Escapadas y experiencias</title>
+<link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
-  <h1>¡Funciona!</h1>
-  <p>Publicado con GitHub Pages.</p>
-</body>
+<header class="site-header">
+<div class="container header-inner">
+<a class="logo" href="/unique/">Unique</a>
+<nav class="nav" aria-label="Principal">
+<button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">☰</button>
+<ul id="nav-menu" class="menu">
+<li class="has-dropdown"><a href="#">Escapadas</a>
+<ul class="dropdown">
+<li><a href="listing.html?tag=romanticas">Románticas</a></li>
+<li><a href="listing.html?tag=spa">Spa & Relax</a></li>
+<li><a href="listing.html?tag=aventura">Aventura</a></li>
+</ul>
+</li>
+<li class="has-dropdown"><a href="#">Destinos</a>
+<ul class="dropdown">
+<li><a href="listing.html?city=Barcelona">Barcelona</a></li>
+<li><a href="listing.html?city=Madrid">Madrid</a></li>
+<li><a href="listing.html?city=Valencia">Valencia</a></li>
+</ul>
+</li>
+<li><a href="listing.html">Ofertas</a></li>
+<li><a href="#contacto">Ayuda</a></li>
+<li><a class="cart-link" href="checkout.html">Carrito <span id="cart-count">0</span></a></li>
+</ul>
+</nav>
+</div>
+</header>
+
+
+<main>
+<section class="hero">
+<div class="container hero-inner">
+<h1>Escapadas únicas al mejor precio</h1>
+<p>Encuentra tu próxima experiencia con estancias, spa y más.</p>
+<form class="search" action="listing.html" method="get">
+<label>
+<span>Destino</span>
+<input type="text" name="q" placeholder="Ciudad o región" />
+</label>
+<label>
+<span>Entrada</span>
+<input type="date" name="checkin" />
+</label>
+<label>
+<span>Salida</span>
+<input type="date" name="checkout" />
+</label>
+<label>
+<span>Personas</span>
 </html>
