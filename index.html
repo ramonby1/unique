@@ -1,79 +1,116 @@
-:root{
-  --bg:#f6f8fb; --panel:#fff; --ink:#0f172a; --muted:#6b7280; --brand:#111827; --accent:#2563eb; --ok:#16a34a; --danger:#dc2626;
-}
-*{box-sizing:border-box}
-html,body{margin:0}
-body{font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg)}
-.container{max-width:1100px;margin:0 auto;padding:0 20px}
-.section{padding:48px 0}
-.link{font-size:.95rem}
-.btn{display:inline-block;padding:12px 18px;border-radius:10px;background:var(--brand);color:#fff;text-decoration:none;border:0;cursor:pointer}
-.btn.ghost{background:#e5e7eb;color:#111}
-.btn.primary{background:var(--accent)}
-.btn:disabled{opacity:.5;cursor:not-allowed}
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Unique — Escapadas y experiencias</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="/unique/">Unique</a>
+      <nav class="nav" aria-label="Principal">
+        <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">☰</button>
+        <ul id="nav-menu" class="menu">
+          <li class="has-dropdown"><a href="#">Escapadas</a>
+            <ul class="dropdown">
+              <li><a href="listing.html?tag=romanticas">Románticas</a></li>
+              <li><a href="listing.html?tag=spa">Spa & Relax</a></li>
+              <li><a href="listing.html?tag=aventura">Aventura</a></li>
+            </ul>
+          </li>
+          <li class="has-dropdown"><a href="#">Destinos</a>
+            <ul class="dropdown">
+              <li><a href="listing.html?city=Barcelona">Barcelona</a></li>
+              <li><a href="listing.html?city=Madrid">Madrid</a></li>
+              <li><a href="listing.html?city=Valencia">Valencia</a></li>
+            </ul>
+          </li>
+          <li><a href="listing.html">Ofertas</a></li>
+          <li><a href="#contacto">Ayuda</a></li>
+          <li><a class="cart-link" href="checkout.html">Carrito <span id="cart-count">0</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-/* Header & nav */
-.site-header{position:sticky;top:0;background:#fff;border-bottom:1px solid #eee;z-index:50}
-.header-inner{display:flex;align-items:center;justify-content:space-between;height:60px}
-.logo{font-weight:800;text-decoration:none;color:#111;font-size:1.2rem}
-.nav-toggle{display:none}
-.menu{display:flex;align-items:center;gap:14px;list-style:none;margin:0;padding:0}
-.menu a{color:#111;text-decoration:none}
-.menu .has-dropdown{position:relative}
-.dropdown{position:absolute;top:100%;left:0;background:#fff;border:1px solid #eee;border-radius:10px;min-width:200px;display:none;box-shadow:0 10px 20px rgba(0,0,0,.06)}
-.has-dropdown:hover .dropdown{display:block}
-.dropdown li{list-style:none}
-.dropdown a{display:block;padding:10px 12px}
-.cart-link{padding:8px 12px;border:1px solid #eee;border-radius:8px}
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <h1>Escapadas únicas al mejor precio</h1>
+        <p>Encuentra tu próxima experiencia con estancias, spa y más.</p>
+        <form class="search" action="listing.html" method="get">
+          <label class="has-suggest">
+            <span>Destino</span>
+            <input id="destino" type="text" name="q" placeholder="Ciudad o región" autocomplete="off" />
+            <div id="destino-suggest" class="suggest"></div>
+          </label>
+          <label>
+            <span>Entrada</span>
+            <input type="date" name="checkin" />
+          </label>
+          <label>
+            <span>Salida</span>
+            <input type="date" name="checkout" />
+          </label>
+          <label>
+            <span>Personas</span>
+            <select name="guests">
+              <option value="2" selected>2</option>
+              <option value="1">1</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+          </label>
+          <button class="btn" type="submit">Buscar</button>
+        </form>
 
-/* Hero con imagen de fondo */
-.hero{
-  background: linear-gradient(180deg, rgba(238,242,255,.75), rgba(238,242,255,.75)),
-              url("https://images.unsplash.com/photo-1502920514313-52581002a659?q=80&w=2000&auto=format&fit=crop") center/cover no-repeat;
-  padding: 90px 0;
-}
-.hero-inner{text-align:center}
-.hero h1{margin:0 0 10px;font-size:2.2rem}
-.hero p{margin:0 0 20px;color:var(--muted)}
-.search{display:grid;grid-template-columns:2fr repeat(3,1fr) auto;gap:10px;align-items:end;justify-items:stretch}
-.search label{display:flex;flex-direction:column;gap:6px;font-size:.9rem;color:#374151}
-.search input,.search select{height:42px;padding:0 10px;border:1px solid #e5e7eb;border-radius:10px;background:#fff}
+        <!-- Mosaico de categorías / destinos -->
+        <div class="quick-cats">
+          <a class="qcard" href="listing.html?tag=romanticas">
+            <img src="https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?q=80&w=1400&auto=format&fit=crop" alt="Románticas">
+            <span>Románticas</span>
+          </a>
+          <a class="qcard" href="listing.html?tag=spa">
+            <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1400&auto=format&fit=crop" alt="Spa & Relax">
+            <span>Spa & Relax</span>
+          </a>
+          <a class="qcard" href="listing.html?tag=aventura">
+            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1400&auto=format&fit=crop" alt="Aventura">
+            <span>Aventura</span>
+          </a>
+          <a class="qcard" href="listing.html?city=Barcelona">
+            <img src="https://images.unsplash.com/photo-1511735111819-9a3f7709049c?q=80&w=1400&auto=format&fit=crop" alt="Barcelona">
+            <span>Barcelona</span>
+          </a>
+          <a class="qcard" href="listing.html?city=Madrid">
+            <img src="https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?q=80&w=1400&auto=format&fit=crop" alt="Madrid">
+            <span>Madrid</span>
+          </a>
+          <a class="qcard" href="listing.html">
+            <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=1400&auto=format&fit=crop" alt="Ver todas">
+            <span>Ver todas</span>
+          </a>
+        </div>
+      </div>
+    </section>
 
-/* Quick categories grid (mosaico) */
-.quick-cats{
-  margin-top:28px;
-  display:grid;
-  gap:16px;
-  grid-template-columns: repeat(3, 1fr);
-}
-.qcard{
-  position:relative; display:block; border-radius:16px; overflow:hidden;
-  border:1px solid #eee;
-}
-.qcard img{ width:100%; height:160px; object-fit:cover; display:block; }
-.qcard span{
-  position:absolute; left:12px; bottom:12px;
-  background:rgba(0,0,0,.55); color:#fff; padding:6px 10px; border-radius:10px; font-weight:600;
-}
-.qcard:hover img{ transform: scale(1.03); transition: transform .25s ease; }
+    <section class="container section">
+      <div class="section-head">
+        <h2>Destacados de esta semana</h2>
+        <a class="link" href="listing.html">Ver todos</a>
+      </div>
+      <div id="featured" class="grid cards"></div>
+    </section>
+  </main>
 
-/* Cards */
-.grid{display:grid;gap:20px}
-.cards{grid-template-columns:repeat(3,1fr)}
-.card{background:var(--panel);border-radius:14px;overflow:hidden;border:1px solid #eee;display:flex;flex-direction:column}
-.card img{width:100%;height:170px;object-fit:cover}
-.card .pad{padding:14px}
-.card h3{margin:0 0 6px;font-size:1.05rem}
-.card .meta{display:flex;align-items:center;justify-content:space-between;color:var(--muted)}
-.card .price{font-weight:700;color:#111}
+  <footer class="site-footer">
+    <div class="container">
+      <small>© <span id="year"></span> Unique · Demo</small>
+    </div>
+  </footer>
 
-/* Listing */
-.filters{display:flex;gap:10px;align-items:center;margin-bottom:16px}
-.filters input[type="text"],.filters select{height:38px;padding:0 10px;border:1px solid #e5e7eb;border-radius:8px;background:#fff}
-
-/* Sugerencias del campo destino */
-.has-suggest{ position:relative }
-.suggest{
-  position:absolute; top:100%; left:0; right:0;
-  background:#fff; border:1px solid #e5e7eb; border-radius:10px;
-  padding:6px; margin-top:6px; display:none; z-index:40; box-sha
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
