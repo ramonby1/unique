@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Unique — Ofertas</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="/unique/">Unique</a>
+      <nav class="nav" aria-label="Principal">
+        <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">☰</button>
+        <ul id="nav-menu" class="menu">
+          <li><a href="listing.html?tag=romanticas">Románticas</a></li>
+          <li><a href="listing.html?tag=spa">Spa</a></li>
+          <li><a href="listing.html">Todas</a></li>
+          <li><a class="cart-link" href="checkout.html">Carrito <span id="cart-count">0</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container section">
+    <form id="filters" class="filters">
+      <input type="text" name="q" placeholder="Buscar…" />
+      <select name="sort">
+        <option value="pop">Más populares</option>
+        <option value="priceAsc">Precio ↑</option>
+        <option value="priceDesc">Precio ↓</option>
+      </select>
+      <label><input type="checkbox" name="tag" value="spa" /> Spa</label>
+      <label><input type="checkbox" name="tag" value="romanticas" /> Románticas</label>
+    </form>
+
+    <div id="results" class="grid cards"></div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>© <span id="year"></span> Unique</small>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
