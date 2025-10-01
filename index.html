@@ -1,61 +1,110 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Unique — Escapadas y experiencias</title>
+  <title>Unique — Getaways & Experiences</title>
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
+  <!-- Header -->
   <header class="site-header">
     <div class="container header-inner">
       <a class="logo" href="/unique/">Unique</a>
-      <nav class="nav" aria-label="Principal">
+
+      <nav class="nav" aria-label="Main">
         <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">☰</button>
+
         <ul id="nav-menu" class="menu">
-          <li class="has-dropdown"><a href="#">Escapadas</a>
+          <!-- Destinations (mega) -->
+          <li class="mega has-dropdown" id="destinations-nav">
+            <a href="#" class="mega-trigger">Destinations</a>
+            <div class="mega-panel" role="menu" aria-label="Destinations">
+              <div class="mega-inner">
+                <!-- Level 1 -->
+                <aside class="mega-col l1" aria-label="Regions">
+                  <ul id="dest-l1" class="menu-plain"></ul>
+                </aside>
+                <!-- Level 2 -->
+                <section class="mega-col l2" aria-label="Areas">
+                  <h4 id="dest-l2-title">Select a region</h4>
+                  <ul id="dest-l2" class="menu-plain"></ul>
+                </section>
+              </div>
+            </div>
+          </li>
+
+          <!-- Getaways (simple link to listing) -->
+          <li><a href="listing.html">Getaways</a></li>
+
+          <!-- 24/7 Help dropdown -->
+          <li class="has-dropdown">
+            <a href="#">24/7 Help</a>
             <ul class="dropdown">
-              <li><a href="listing.html?tag=romanticas">Románticas</a></li>
-              <li><a href="listing.html?tag=spa">Spa & Relax</a></li>
-              <li><a href="listing.html?tag=aventura">Aventura</a></li>
+              <li><a href="#" id="help-webchat">Web chat</a></li>
+              <li><a href="https://wa.me/" target="_blank" rel="noopener">WhatsApp</a></li>
+              <li><a href="tel:+000000000">Phone call</a></li>
             </ul>
           </li>
-          <li class="has-dropdown"><a href="#">Destinos</a>
+
+          <!-- Language -->
+          <li class="has-dropdown">
+            <a href="#" aria-label="Language">🌐</a>
             <ul class="dropdown">
-              <li><a href="listing.html?city=Barcelona">Barcelona</a></li>
-              <li><a href="listing.html?city=Madrid">Madrid</a></li>
-              <li><a href="listing.html?city=Valencia">Valencia</a></li>
+              <li><a href="#" data-lang="en">English</a></li>
+              <li><a href="#" data-lang="es">Español</a></li>
             </ul>
           </li>
-          <li><a href="listing.html">Ofertas</a></li>
-          <li><a href="#contacto">Ayuda</a></li>
-          <li><a class="cart-link" href="checkout.html">Carrito <span id="cart-count">0</span></a></li>
+
+          <!-- Currency -->
+          <li class="has-dropdown">
+            <a href="#" aria-label="Currency">💱</a>
+            <ul class="dropdown">
+              <li><a href="#" data-cur="GBP">GBP £</a></li>
+              <li><a href="#" data-cur="EUR">EUR €</a></li>
+              <li><a href="#" data-cur="USD">USD $</a></li>
+            </ul>
+          </li>
+
+          <!-- Account -->
+          <li class="has-dropdown">
+            <a href="#" aria-label="Account">👤</a>
+            <ul class="dropdown">
+              <li><a href="#" id="nav-register">Register</a></li>
+              <li><a href="#" id="nav-signin">Sign in</a></li>
+            </ul>
+          </li>
+
+          <!-- Cart -->
+          <li><a class="cart-link" href="checkout.html">Cart <span id="cart-count">0</span></a></li>
         </ul>
       </nav>
     </div>
   </header>
 
+  <!-- Hero -->
   <main>
     <section class="hero">
       <div class="container hero-inner">
-        <h1>Escapadas únicas al mejor precio</h1>
-        <p>Encuentra tu próxima experiencia con estancias, spa y más.</p>
+        <h1>Unique getaways at the best price</h1>
+        <p>Find your next experience with stays, spa and more.</p>
+
         <form class="search" action="listing.html" method="get">
           <label class="has-suggest">
-            <span>Destino</span>
-            <input id="destino" type="text" name="q" placeholder="Ciudad o región" autocomplete="off" />
+            <span>Destination</span>
+            <input id="destino" type="text" name="q" placeholder="City or region" autocomplete="off" />
             <div id="destino-suggest" class="suggest"></div>
           </label>
           <label>
-            <span>Entrada</span>
+            <span>Check-in</span>
             <input type="date" name="checkin" />
           </label>
           <label>
-            <span>Salida</span>
+            <span>Check-out</span>
             <input type="date" name="checkout" />
           </label>
           <label>
-            <span>Personas</span>
+            <span>Guests</span>
             <select name="guests">
               <option value="2" selected>2</option>
               <option value="1">1</option>
@@ -63,22 +112,22 @@
               <option value="4">4</option>
             </select>
           </label>
-          <button class="btn" type="submit">Buscar</button>
+          <button class="btn" type="submit">Search</button>
         </form>
 
-        <!-- Mosaico -->
+        <!-- Quick categories grid -->
         <div class="quick-cats">
-          <a class="qcard" href="listing.html?tag=romanticas">
-            <img src="https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?q=80&w=1400&auto=format&fit=crop" alt="Románticas">
-            <span>Románticas</span>
+          <a class="qcard" href="listing.html?tag=romantic">
+            <img src="https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?q=80&w=1400&auto=format&fit=crop" alt="Romantic">
+            <span>Romantic</span>
           </a>
           <a class="qcard" href="listing.html?tag=spa">
             <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1400&auto=format&fit=crop" alt="Spa & Relax">
             <span>Spa & Relax</span>
           </a>
-          <a class="qcard" href="listing.html?tag=aventura">
-            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1400&auto=format&fit=crop" alt="Aventura">
-            <span>Aventura</span>
+          <a class="qcard" href="listing.html?tag=adventure">
+            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1400&auto=format&fit=crop" alt="Adventure">
+            <span>Adventure</span>
           </a>
           <a class="qcard" href="listing.html?city=Barcelona">
             <img src="https://images.unsplash.com/photo-1511735111819-9a3f7709049c?q=80&w=1400&auto=format&fit=crop" alt="Barcelona">
@@ -89,8 +138,8 @@
             <span>Madrid</span>
           </a>
           <a class="qcard" href="listing.html">
-            <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=1400&auto=format&fit=crop" alt="Ver todas">
-            <span>Ver todas</span>
+            <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=1400&auto=format&fit=crop" alt="See all">
+            <span>See all</span>
           </a>
         </div>
       </div>
@@ -98,8 +147,8 @@
 
     <section class="container section">
       <div class="section-head">
-        <h2>Destacados de esta semana</h2>
-        <a class="link" href="listing.html">Ver todos</a>
+        <h2>This week’s highlights</h2>
+        <a class="link" href="listing.html">View all</a>
       </div>
       <div id="featured" class="grid cards"></div>
     </section>
