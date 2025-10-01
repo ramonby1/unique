@@ -7,20 +7,16 @@
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
-  <!-- Header -->
   <header class="site-header">
     <div class="container header-inner">
       <a class="logo" href="/unique/">Unique</a>
 
       <nav class="nav" aria-label="Main">
         <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">☰</button>
-
         <ul id="nav-menu" class="menu">
-          <!-- Destinations now goes to a page -->
           <li><a href="destinations.html">Destinations</a></li>
           <li><a href="listing.html">Getaways</a></li>
 
-          <!-- 24/7 Help -->
           <li class="has-dropdown">
             <a href="#">24/7 Help</a>
             <ul class="dropdown">
@@ -30,16 +26,14 @@
             </ul>
           </li>
 
-          <!-- Language (flag reflects current) -->
           <li class="has-dropdown">
-            <a href="#" id="lang-current" aria-label="Language">🌐</a>
+            <a href="#" id="lang-current" aria-label="Language">🇬🇧</a>
             <ul class="dropdown">
               <li><a href="#" data-lang="en">English 🇬🇧</a></li>
               <li><a href="#" data-lang="es">Español 🇪🇸</a></li>
             </ul>
           </li>
 
-          <!-- Currency (symbol reflects current) -->
           <li class="has-dropdown">
             <a href="#" id="cur-current" aria-label="Currency">£</a>
             <ul class="dropdown">
@@ -49,7 +43,6 @@
             </ul>
           </li>
 
-          <!-- Account -->
           <li class="has-dropdown">
             <a href="#" aria-label="Account">👤</a>
             <ul class="dropdown">
@@ -58,28 +51,25 @@
             </ul>
           </li>
 
-          <!-- Cart with icon -->
           <li><a class="cart-link" href="checkout.html">🛒 Cart <span id="cart-count">0</span></a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <!-- Hero -->
   <main>
     <section class="hero">
       <div class="container hero-inner">
         <h1>Unique getaways at the best price</h1>
         <p>Find your next experience with stays, spa and more.</p>
 
-        <!-- Search with Tesco-style two-level dropdown embedded in Destination -->
         <form class="search" action="listing.html" method="get">
+          <!-- DESTINATION with Tesco-style panel -->
           <label class="has-mega">
             <span>Destination</span>
             <input id="destino" type="text" name="q" placeholder="City or region" autocomplete="off" />
-            <!-- Solid background, stays open while hovering -->
             <div class="mega-panel solid" id="form-destinations" role="menu" aria-label="Destinations">
-              <div class="mega-inner">
+              <div class="mega-inner form">
                 <!-- Level 1 -->
                 <aside class="mega-col l1" aria-label="Regions">
                   <ul id="dest-l1" class="menu-plain"></ul>
@@ -87,57 +77,66 @@
                 <!-- Level 2 -->
                 <section class="mega-col l2" aria-label="Areas">
                   <h4 id="dest-l2-title">Select a region</h4>
-                  <ul id="dest-l2" class="menu-plain"></ul>
+                  <ul id="dest-l2" class="menu-plain single"></ul>
                 </section>
               </div>
             </div>
           </label>
 
-          <label>
+          <!-- DATE RANGE (two months) -->
+          <label class="has-daterange">
             <span>Check-in</span>
             <input id="checkin" type="text" inputmode="numeric" placeholder="dd/mm/yyyy" name="checkin" maxlength="10" />
+            <div id="date-range" class="range-panel"></div>
           </label>
+
           <label>
             <span>Check-out</span>
             <input id="checkout" type="text" inputmode="numeric" placeholder="dd/mm/yyyy" name="checkout" maxlength="10" />
           </label>
-          <label>
+
+          <!-- GUESTS -->
+          <label class="guests-narrow has-guests">
             <span>Guests</span>
-            <select name="guests">
-              <option value="2" selected>2</option>
-              <option value="1">1</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-            </select>
+            <div class="guests-field"><span class="icon">👥</span><input id="guests" type="text" value="2" readonly /></div>
+            <div id="guests-panel" class="guests-panel">
+              <div class="row">
+                <div class="label">Adults<br><small>12+ years</small></div>
+                <div class="ctrl"><button type="button" data-g="-1" data-k="adults">-</button><span id="gv-adults">2</span><button type="button" data-g="+1" data-k="adults">+</button></div>
+              </div>
+              <div class="row">
+                <div class="label">Children<br><small>Under 12</small></div>
+                <div class="ctrl"><button type="button" data-g="-1" data-k="children">-</button><span id="gv-children">0</span><button type="button" data-g="+1" data-k="children">+</button></div>
+              </div>
+              <div class="row">
+                <div class="label">Babies<br><small>Under 2</small></div>
+                <div class="ctrl"><button type="button" data-g="-1" data-k="babies">-</button><span id="gv-babies">0</span><button type="button" data-g="+1" data-k="babies">+</button></div>
+              </div>
+              <div class="row confirm"><button type="button" id="guests-ok" class="btn">Confirm</button></div>
+            </div>
           </label>
+
           <button class="btn" type="submit">Search</button>
         </form>
 
-        <!-- Quick categories grid -->
         <div class="quick-cats">
           <a class="qcard" href="listing.html?tag=romantic">
-            <img src="https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?q=80&w=1400&auto=format&fit=crop" alt="Romantic">
-            <span>Romantic</span>
+            <img src="https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?q=80&w=1400&auto=format&fit=crop" alt="Romantic"><span>Romantic</span>
           </a>
           <a class="qcard" href="listing.html?tag=spa">
-            <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1400&auto=format&fit=crop" alt="Spa & Relax">
-            <span>Spa & Relax</span>
+            <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1400&auto=format&fit=crop" alt="Spa & Relax"><span>Spa & Relax</span>
           </a>
           <a class="qcard" href="listing.html?tag=adventure">
-            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1400&auto=format&fit=crop" alt="Adventure">
-            <span>Adventure</span>
+            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1400&auto=format&fit=crop" alt="Adventure"><span>Adventure</span>
           </a>
           <a class="qcard" href="listing.html?city=Barcelona">
-            <img src="https://images.unsplash.com/photo-1511735111819-9a3f7709049c?q=80&w=1400&auto=format&fit=crop" alt="Barcelona">
-            <span>Barcelona</span>
+            <img src="https://images.unsplash.com/photo-1511735111819-9a3f7709049c?q=80&w=1400&auto=format&fit=crop" alt="Barcelona"><span>Barcelona</span>
           </a>
           <a class="qcard" href="listing.html?city=Madrid">
-            <img src="https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?q=80&w=1400&auto=format&fit=crop" alt="Madrid">
-            <span>Madrid</span>
+            <img src="https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?q=80&w=1400&auto=format&fit=crop" alt="Madrid"><span>Madrid</span>
           </a>
           <a class="qcard" href="listing.html">
-            <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=1400&auto=format&fit=crop" alt="See all">
-            <span>See all</span>
+            <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=1400&auto=format&fit=crop" alt="See all"><span>See all</span>
           </a>
         </div>
       </div>
