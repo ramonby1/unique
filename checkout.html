@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Unique — Checkout</title>
+<link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+<header class="site-header">
+<div class="container header-inner">
+<a class="logo" href="/unique/">Unique</a>
+<nav class="nav">
+<a href="listing.html">Seguir buscando</a>
+</nav>
+</div>
+</header>
+
+
+<main class="container section checkout">
+<h1>Finalizar compra</h1>
+
+
+<ol class="steps">
+<li class="active">1. Revisa tu carrito</li>
+<li>2. Datos personales</li>
+<li>3. Pago</li>
+</ol>
+
+
+<section id="step1" class="step active">
+<div id="cart"></div>
+<div class="actions">
+<button class="btn" id="toStep2">Continuar</button>
+</div>
+</section>
+
+
+<section id="step2" class="step">
+<form id="customer">
+<div class="grid two">
+<label>Nombre <input name="firstName" required /></label>
+<label>Apellidos <input name="lastName" required /></label>
+<label>Email <input type="email" name="email" required /></label>
+<label>Teléfono <input type="tel" name="phone" required /></label>
+</div>
+<details class="accord">
+<summary>Preferencias (opcional)</summary>
+<label>Hora de llegada <input type="time" name="arrival" /></label>
+<label>Observaciones <textarea name="notes"></textarea></label>
+</details>
+</form>
+<div class="actions">
+<button class="btn ghost" id="back1">Volver</button>
+<button class="btn" id="toStep3">Continuar</button>
+</div>
+</section>
+
+
+<section id="step3" class="step">
+<p><strong>Pago simulado para demo.</strong> Para activar un pago real más adelante, conectaremos <em>Stripe Checkout</em> o un <em>Payment Link</em> sin backend.</p>
+<label><input type="checkbox" id="terms"> Acepto los términos y condiciones</label>
+<div class="actions">
+</html>
