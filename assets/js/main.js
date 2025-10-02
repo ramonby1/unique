@@ -1,4 +1,4 @@
-/* ===== Demo data ===== */
+/* ===== Demo offers ===== */
 const OFFERS = [
   { id:'o1', title:'Romantic night + spa', city:'Barcelona', tags:['romantic','spa'], price:119, img:'https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=1600&auto=format&fit=crop' },
   { id:'o2', title:'Resort with pool & breakfast', city:'Valencia', tags:['family'], price:89, img:'https://images.unsplash.com/photo-1501117716987-c8e3f8d8e9a5?q=80&w=1600&auto=format&fit=crop' },
@@ -13,7 +13,7 @@ const DEFAULT_LANG='en', DEFAULT_CUR='GBP';
 const curSymbol=c=>c==='EUR'?'€':c==='USD'?'$':'£';
 const langFlag=l=>l==='es'?'🇪🇸':'🇬🇧';
 const getLang=()=>localStorage.getItem('unique_lang')||DEFAULT_LANG;
-const setLang=v=>{localStorage.setItem('unique_lang',v); $('#lang-current').textContent=langFlag(v); applyI18n(); rerenderCalendars();};
+const setLang=v=>{localStorage.setItem('unique_lang',v); $('#lang-current').textContent=langFlag(v); applyI18n(); rebuildDestinationsPanel(); rerenderCalendars();};
 const getCur =()=>localStorage.getItem('unique_cur')||DEFAULT_CUR;
 const setCur =v=>{localStorage.setItem('unique_cur',v); $('#cur-current').textContent=curSymbol(v); rerenderPrices();};
 function fmt(n){ const c=getCur(); const loc=c==='EUR'?'es-ES':c==='USD'?'en-US':'en-GB'; return new Intl.NumberFormat(loc,{style:'currency',currency:c}).format(n); }
@@ -23,7 +23,7 @@ function rerenderPrices(){ renderFeatured(); renderListing(); renderDetail(); re
 const $=s=>document.querySelector(s);
 const $$=s=>[...document.querySelectorAll(s)];
 
-/* ===== I18n dictionary ===== */
+/* ===== I18n ===== */
 const I18N={
   en:{
     brand:'Unique',
@@ -32,6 +32,7 @@ const I18N={
     'auth.register':'Register','auth.signin':'Sign in',
     'hero.title':'Unique getaways at the best price','hero.subtitle':'Find your next experience with stays, spa and more.',
     'form.destination':'Destination','form.dates':'Dates','form.theme':'Theme','form.guests':'Guests',
+    'ph.dest':'Where do you want to travel?','ph.dates':'When?','ph.theme':'Any theme',
     'actions.confirm':'Confirm','actions.clear':'Clear','actions.search':'Search','actions.viewAll':'View all',
     'section.highlights':'This week’s highlights','footer.demo':'Demo',
     'qc.romantic':'Romantic','qc.spa':'Spa & Relax','qc.adventure':'Adventure',
@@ -48,6 +49,7 @@ const I18N={
     'auth.register':'Registrarse','auth.signin':'Iniciar sesión',
     'hero.title':'Escapadas únicas al mejor precio','hero.subtitle':'Encuentra tu próxima experiencia con estancias, spa y más.',
     'form.destination':'Destino','form.dates':'Fechas','form.theme':'Temática','form.guests':'Personas',
+    'ph.dest':'¿A dónde quieres viajar?','ph.dates':'¿Cuándo?','ph.theme':'Cualquier temática',
     'actions.confirm':'Confirmar','actions.clear':'Borrar','actions.search':'Buscar','actions.viewAll':'Ver todas',
     'section.highlights':'Destacados de la semana','footer.demo':'Demostración',
     'qc.romantic':'Romántico','qc.spa':'Spa & Relax','qc.adventure':'Aventura',
@@ -61,62 +63,72 @@ const I18N={
 function t(key){ const L=getLang(); return I18N[L][key] ?? key; }
 function applyI18n(){
   $$('[data-i18n]').forEach(el=>{ el.innerHTML = t(el.dataset.i18n); });
-  // Theme options
-  const sel=$('#theme'); if(sel){ const opts=I18N[getLang()].themeOptions; sel.innerHTML=opts.map(o=>`<option>${o}</option>`).join(''); }
+  // placeholders
+  const dest=$('#destino'), dates=$('#dates'), themeSel=$('#theme');
+  if(dest) dest.placeholder = t('ph.dest');
+  if(dates) dates.placeholder = t('ph.dates');
+  if(themeSel){
+    const opts=I18N[getLang()].themeOptions;
+    themeSel.innerHTML = `<option value="">${t('ph.theme')}</option>` + opts.map(o=>`<option>${o}</option>`).join('');
+  }
 }
 
-/* ===== Cart ===== */
-function getCart(){ try{return JSON.parse(localStorage.getItem('unique_cart')||'[]')}catch{return[]} }
-function setCart(x){ localStorage.setItem('unique_cart',JSON.stringify(x)); updateCartCount(); }
-function addToCart(id){ const xs=getCart(); const f=xs.find(i=>i.id===id); f?f.qty++:xs.push({id,qty:1}); setCart(xs); alert('Added to cart'); }
-function removeFromCart(id){ setCart(getCart().filter(i=>i.id!==id)); renderCart(); }
-function updateCartCount(){ const n=getCart().reduce((a,b)=>a+b.qty,0); const el=$('#cart-count'); if(el) el.textContent=n; }
-
-/* ===== Nav ===== */
-function setupNav(){
-  const t=$('.nav-toggle'), m=$('#nav-menu'); if(t&&m){ t.addEventListener('click',()=>{ const o=m.classList.toggle('open'); t.setAttribute('aria-expanded',o);});}
-  $$('[data-lang]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault(); setLang(a.dataset.lang);} ));
-  $$('[data-cur]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault(); setCur(a.dataset.cur);} ));
-  $('#lang-current').textContent=langFlag(getLang());
-  $('#cur-current').textContent=curSymbol(getCur());
-}
-
-/* ===== Destinations dataset ===== */
-const DESTINATIONS={
+/* ===== Destinations datasets (ES & EN) ===== */
+const DEST_ES={
   "Baleares":["Mallorca","Menorca","Ibiza","Formentera"],
   "Canarias":["Gran Canaria","Tenerife","Lanzarote"],
-  "Catalunya":["Lampurda - Costa Brava","Cadaques - Costa Brava","Sitges - Costa Dorada","Barcelona"],
+  "Catalunya":["L\u00b7Empord\u00e0 - Costa Brava","Cadaqu\u00e9s - Costa Brava","Sitges - Costa Dorada","Barcelona"],
   "Andorra":["Andorra"],
   "Baqueira":["Baqueira"],
   "Sierra Nevada":["Sierra Nevada"],
   "Rioja":["Rioja"],
-  "Ribera del Duero":["Penyafiel","Burgos"],
-  "Galicia":["Rias Baixas","Rias Altas","Ribeira Sacra"],
+  "Ribera del Duero":["Pe\u00f1afiel","Burgos"],
+  "Galicia":["R\u00edas Baixas","R\u00edas Altas","Ribeira Sacra"],
   "Asturias":["Asturias"],
-  "Andalucía":["Sevilla","Granada","Cordoba","Malaga","Marbella","Sotogrande","Cadiz"],
+  "Andaluc\u00eda":["Sevilla","Granada","C\u00f3rdoba","M\u00e1laga","Marbella","Sotogrande","C\u00e1diz"],
   "Madrid":["Madrid"],
-  "Pais Vasco":["Bilbao","San Sebastian"],
+  "Pa\u00eds Vasco":["Bilbao","San Sebasti\u00e1n"],
   "Navarra":["Pamplona"],
   "Cantabria":["Santander"],
-  "Valencia":["Altea","Javea","Denia","Alicante","Benidorm"]
+  "Valencia":["Altea","J\u00e1vea","Denia","Alicante","Benidorm"]
 };
+const DEST_EN={
+  "Balearic Islands":["Majorca","Menorca","Ibiza","Formentera"],
+  "Canary Islands":["Gran Canaria","Tenerife","Lanzarote"],
+  "Catalonia":["Empord\u00e0 - Costa Brava","Cadaqu\u00e9s - Costa Brava","Sitges - Costa Daurada","Barcelona"],
+  "Andorra":["Andorra"],
+  "Baqueira":["Baqueira"],
+  "Sierra Nevada":["Sierra Nevada"],
+  "La Rioja":["La Rioja"],
+  "Ribera del Duero":["Pe\u00f1afiel","Burgos"],
+  "Galicia":["R\u00edas Baixas","R\u00edas Altas","Ribeira Sacra"],
+  "Asturias":["Asturias"],
+  "Andalusia":["Seville","Granada","Cordoba","Malaga","Marbella","Sotogrande","Cadiz"],
+  "Madrid":["Madrid"],
+  "Basque Country":["Bilbao","San Sebastian"],
+  "Navarre":["Pamplona"],
+  "Cantabria":["Santander"],
+  "Valencian Community":["Altea","Javea","Denia","Alicante","Benidorm"]
+};
+function getDestData(){ return getLang()==='es' ? DEST_ES : DEST_EN; }
 
-/* ===== Destination panel ===== */
+/* ===== Destination panel (build & rebuild) ===== */
+let DEST_DATA=getDestData();
+function rebuildDestinationsPanel(){
+  DEST_DATA=getDestData();
+  const l1=$('#dest-l1'), l2=$('#dest-l2'), title=$('#dest-l2-title');
+  if(!l1||!l2||!title) return;
+  const regions=Object.keys(DEST_DATA);
+  l1.innerHTML = regions.map((r,i)=>`<li><a href="#" data-region="${r}" class="${i===0?'active':''}">${r}</a></li>`).join('');
+  title.textContent = regions[0] || '';
+  l2.innerHTML = (DEST_DATA[regions[0]]||[]).map(a=>`<li><a href="listing.html?city=${encodeURIComponent(a)}">${a}</a></li>`).join('');
+}
+
 function setupFormDestinations(){
   const input=$('#destino'), panel=$('#form-destinations'), l1=$('#dest-l1'), l2=$('#dest-l2'), title=$('#dest-l2-title');
   if(!input||!panel) return;
-  const regions=Object.keys(DESTINATIONS);
 
-  function buildL1(list=regions, active=list[0]){
-    l1.innerHTML=list.map(r=>`<li><a href="#" data-region="${r}" class="${r===active?'active':''}">${r}</a></li>`).join('');
-  }
-  function renderL2(region){
-    title.textContent=region||'';
-    const areas=(DESTINATIONS[region]||[]);
-    l2.innerHTML=areas.map(a=>`<li><a href="listing.html?city=${encodeURIComponent(a)}">${a}</a></li>`).join('')||'<li><em>No areas</em></li>';
-    $$('#dest-l1 a').forEach(a=>a.classList.toggle('active',a.dataset.region===region));
-  }
-  buildL1(); renderL2(regions[0]);
+  rebuildDestinationsPanel();
 
   const open=()=>{ panel.style.display='block';};
   const close=()=>{ panel.style.display='none';};
@@ -124,19 +136,24 @@ function setupFormDestinations(){
   panel.addEventListener('mouseenter',open);
   document.addEventListener('click',e=>{ if(!panel.contains(e.target) && e.target!==input){ close(); } });
 
-  l1.addEventListener('mouseover', e=>{ const a=e.target.closest('a[data-region]'); if(a) renderL2(a.dataset.region); });
-  l1.addEventListener('click', e=>{ const a=e.target.closest('a[data-region]'); if(a){ e.preventDefault(); renderL2(a.dataset.region);} });
+  l1.addEventListener('mouseover', e=>{
+    const a=e.target.closest('a[data-region]'); if(a){
+      title.textContent=a.dataset.region;
+      const areas=DEST_DATA[a.dataset.region]||[];
+      l2.innerHTML=areas.map(x=>`<li><a href="listing.html?city=${encodeURIComponent(x)}">${x}</a></li>`).join('');
+      $$('#dest-l1 a').forEach(x=>x.classList.toggle('active',x===a));
+    }
+  });
+  l1.addEventListener('click', e=>{ const a=e.target.closest('a[data-region]'); if(a) e.preventDefault(); });
 
   // type-ahead filter
   input.addEventListener('input', ()=>{
     const q=input.value.trim().toLowerCase();
-    if(!q){ buildL1(regions); renderL2(regions[0]); return; }
-    const matchedRegions=regions.filter(r=>r.toLowerCase().includes(q) || (DESTINATIONS[r]||[]).some(a=>a.toLowerCase().includes(q)));
-    buildL1(matchedRegions);
-    renderL2(matchedRegions[0]||'');
-    if(matchedRegions[0]){
-      l2.innerHTML=(DESTINATIONS[matchedRegions[0]]||[]).filter(a=>a.toLowerCase().includes(q)).map(a=>`<li><a href="listing.html?city=${encodeURIComponent(a)}">${a}</a></li>`).join('')||'<li><em>No matches</em></li>';
-    }
+    const regions=Object.keys(DEST_DATA);
+    const matches=regions.filter(r=>r.toLowerCase().includes(q) || (DEST_DATA[r]||[]).some(a=>a.toLowerCase().includes(q)));
+    l1.innerHTML = matches.map((r,i)=>`<li><a href="#" data-region="${r}" class="${i===0?'active':''}">${r}</a></li>`).join('');
+    const first=matches[0]; title.textContent=first||'';
+    l2.innerHTML = (DEST_DATA[first]||[]).filter(a=>a.toLowerCase().includes(q)).map(a=>`<li><a href="listing.html?city=${encodeURIComponent(a)}">${a}</a></li>`).join('') || '<li><em>No matches</em></li>';
   });
 
   l2.addEventListener('click', e=>{
@@ -146,7 +163,7 @@ function setupFormDestinations(){
   });
 }
 
-/* ===== Date range picker (single input, reliable open/close) ===== */
+/* ===== Date range picker ===== */
 function setupDateRange(){
   const panel=$('#date-range'), display=$('#dates'), inStart=$('#checkin'), inEnd=$('#checkout');
   if(!panel||!display) return;
@@ -234,8 +251,8 @@ function setupDateRange(){
     close();
   });
 
-  // re-render on language change
-  window.rerenderCalendars = render;
+  // re-render calendars on language change
+  window.rerenderCalendars = ()=>render(start||today);
 }
 
 /* ===== Guests ===== */
@@ -249,8 +266,7 @@ function setupGuests(){
     $('#gv-children').textContent=state.children;
     $('#gv-babies').textContent=state.babies;
     const total=state.adults+state.children+state.babies;
-    field.value=total;
-    field.style.width = Math.max(3, String(total).length) + 'ch';
+    field.value=total; field.style.width=Math.max(3,String(total).length)+'ch';
   }
   panel.addEventListener('click', e=>{
     const b=e.target.closest('button[data-k]'); if(!b) return;
@@ -264,4 +280,5 @@ function setupGuests(){
 function cardHTML(o){ return `<article class="card"><a href="detail.html?id=${o.id}"><img src="${o.img}" alt="${o.title}" loading="lazy"></a><div class="pad"><h3><a href="detail.html?id=${o.id}">${o.title}</a></h3><div class="meta"><span>${o.city}</span><span class="price">${fmt(o.price)}</span></div></div></article>`; }
 function renderFeatured(){ const w=$('#featured'); if(w) w.innerHTML=OFFERS.slice(0,6).map(cardHTML).join(''); }
 function renderListing(){ const w=$('#results'); if(!w) return; const p=new URLSearchParams(location.search), q=(p.get('q')||'').toLowerCase(), tag=p.get('tag'), city=p.get('city'); let rows=OFFERS.filter(o=>(!q||o.title.toLowerCase().includes(q)||o.city.toLowerCase().includes(q))&&(!tag||(o.tags||[]).includes(tag))&&(!city||o.city===city)); w.innerHTML=rows.map(cardHTML).join('')||'<p>No results.</p>'; }
-function renderDetail(){ const box=$('#detail'); if(!box) return; const id=new URLSearchParams(location.search).get('id'); const o=OFFERS.find(x=>x.id===id)||OFFERS[0]; box.innerHTML=`<div class="detail"><div><div class="gallery"><img src="${o.img}" alt="${o.title}"></div><section class="section"><h1>${o.title}</h1><p class="muted">${o.city}</p><h3>Includes</h3><ul><li>Stay for 2 guests
+function renderDetail(){ const box=$('#detail'); if(!box) return; const id=new URLSearchParams(location.search).get('id'); const o=OFFERS.find(x=>x.id===id)||OFFERS[0]; box.innerHTML=`<div class="detail"><div><div class="gallery"><img src="${o.img}" alt="${o.title}"></div><section class="section"><h1>${o.title}</h1><p class="muted">${o.city}</p><h3>Includes</h3><ul><li>Stay for 2 guests</li><li>Breakfast included</li><li>Spa access (subject to availability)</li></ul></section></div><aside class="sticky"><div style="display:flex;justify-content:space-between;align-items:center"><strong>From</strong><span class="price">${fmt(o.price)}</span></div><button class="btn" onclick="addToCart('${o.id}')">Add to cart</button></aside></div>`; }
+function renderCart(){ const wrap=$('#cart'); if(!wrap) return; const xs=getCart(); if(xs.length===0){ wrap.innerHTML='<p>Your cart is empty.</p>'; return;} const rows=xs.map(it=>{const o=OFFERS.find(x=>x.id===it.id); const line=it.qty*o.price; return `<div class="line"><span>${o.title} × ${it.qty}</span><span>${fmt(line)} <button class="btn ghost" onclick="removeFromCart('${it.id}')">Remove</button></span></div>`;}).join(''); const total=
