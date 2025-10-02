@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Unique — Experiences</title>
+  <title>Unique — Getaways & Experiences</title>
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
@@ -26,8 +26,9 @@
             </ul>
           </li>
 
+          <!-- Idioma: click en GB/ES alterna directamente -->
           <li class="has-dropdown">
-            <a href="#" id="lang-current" aria-label="Language">🇬🇧</a>
+            <a href="#" id="lang-current" aria-label="Language">GB</a>
             <ul class="dropdown">
               <li><a href="#" data-lang="en">English 🇬🇧</a></li>
               <li><a href="#" data-lang="es">Español 🇪🇸</a></li>
@@ -63,11 +64,12 @@
         <h1 data-i18n="hero.title">Unique getaways at the best price</h1>
         <p data-i18n="hero.subtitle">Find your next experience with stays, spa and more.</p>
 
+        <!-- SEARCH BAR -->
         <form class="search" action="listing.html" method="get">
-          <!-- Destination -->
+          <!-- DESTINO (panel 2 niveles) -->
           <label class="has-mega">
             <span data-i18n="form.destination">Destination</span>
-            <input id="destino" type="text" name="q" placeholder="Where do you want to travel?" autocomplete="off" />
+            <input id="destino" type="text" name="q" autocomplete="off" />
             <div class="mega-panel solid" id="form-destinations" role="menu" aria-label="Destinations">
               <div class="mega-inner form">
                 <aside class="mega-col l1" aria-label="Regions">
@@ -81,26 +83,26 @@
             </div>
           </label>
 
-          <!-- Dates (single field) -->
+          <!-- FECHAS (un solo campo con rango) -->
           <label class="has-daterange">
             <span data-i18n="form.dates">Dates</span>
-            <input id="dates" type="text" placeholder="When?" readonly />
+            <input id="dates" type="text" readonly />
             <input id="checkin"  name="checkin"  type="hidden" />
             <input id="checkout" name="checkout" type="hidden" />
             <div id="date-range" class="range-panel"></div>
           </label>
 
-          <!-- Theme -->
+          <!-- TEMÁTICA -->
           <label>
             <span data-i18n="form.theme">Theme</span>
             <select id="theme" name="theme"></select>
           </label>
 
-          <!-- Guests -->
+          <!-- GUESTS -->
           <label class="guests-narrow has-guests">
             <span data-i18n="form.guests">Guests</span>
             <div class="guests-field">
-              <span class="icon" aria-hidden="true">👥</span>
+              <span class="icon">👥</span>
               <input id="guests" type="text" value="2" readonly />
             </div>
             <div id="guests-panel" class="guests-panel">
@@ -123,6 +125,7 @@
           <button class="btn" type="submit" data-i18n="actions.search">Search</button>
         </form>
 
+        <!-- QUICK CATEGORIES -->
         <div class="quick-cats">
           <a class="qcard" href="listing.html?tag=romantic">
             <img src="https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?q=80&w=1400&auto=format&fit=crop" alt=""><span data-i18n="qc.romantic">Romantic</span>
