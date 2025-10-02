@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Unique — Getaways & Experiences</title>
+  <title>Unique — Experiences</title>
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
@@ -63,12 +63,11 @@
         <h1 data-i18n="hero.title">Unique getaways at the best price</h1>
         <p data-i18n="hero.subtitle">Find your next experience with stays, spa and more.</p>
 
-        <!-- SEARCH BAR -->
         <form class="search" action="listing.html" method="get">
-          <!-- DESTINATION -->
+          <!-- Destination -->
           <label class="has-mega">
             <span data-i18n="form.destination">Destination</span>
-            <input id="destino" type="text" name="q" placeholder="City or region" autocomplete="off" />
+            <input id="destino" type="text" name="q" placeholder="Where do you want to travel?" autocomplete="off" />
             <div class="mega-panel solid" id="form-destinations" role="menu" aria-label="Destinations">
               <div class="mega-inner form">
                 <aside class="mega-col l1" aria-label="Regions">
@@ -82,25 +81,28 @@
             </div>
           </label>
 
-          <!-- ONE DATE FIELD (RANGE) -->
+          <!-- Dates (single field) -->
           <label class="has-daterange">
             <span data-i18n="form.dates">Dates</span>
-            <input id="dates" type="text" placeholder="dd/mm/yyyy – dd/mm/yyyy" readonly />
+            <input id="dates" type="text" placeholder="When?" readonly />
             <input id="checkin"  name="checkin"  type="hidden" />
             <input id="checkout" name="checkout" type="hidden" />
             <div id="date-range" class="range-panel"></div>
           </label>
 
-          <!-- THEME -->
+          <!-- Theme -->
           <label>
             <span data-i18n="form.theme">Theme</span>
             <select id="theme" name="theme"></select>
           </label>
 
-          <!-- GUESTS -->
+          <!-- Guests -->
           <label class="guests-narrow has-guests">
             <span data-i18n="form.guests">Guests</span>
-            <div class="guests-field"><span class="icon">👥</span><input id="guests" type="text" value="2" readonly /></div>
+            <div class="guests-field">
+              <span class="icon" aria-hidden="true">👥</span>
+              <input id="guests" type="text" value="2" readonly />
+            </div>
             <div id="guests-panel" class="guests-panel">
               <div class="row">
                 <div class="label" data-i18n="guests.adults">Adults<br><small>12+ years</small></div>
@@ -121,25 +123,24 @@
           <button class="btn" type="submit" data-i18n="actions.search">Search</button>
         </form>
 
-        <!-- QUICK CATEGORIES -->
         <div class="quick-cats">
           <a class="qcard" href="listing.html?tag=romantic">
-            <img src="https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?q=80&w=1400&auto=format&fit=crop" alt="Romantic"><span data-i18n="qc.romantic">Romantic</span>
+            <img src="https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?q=80&w=1400&auto=format&fit=crop" alt=""><span data-i18n="qc.romantic">Romantic</span>
           </a>
           <a class="qcard" href="listing.html?tag=spa">
-            <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1400&auto=format&fit=crop" alt="Spa & Relax"><span data-i18n="qc.spa">Spa & Relax</span>
+            <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1400&auto=format&fit=crop" alt=""><span data-i18n="qc.spa">Spa & Relax</span>
           </a>
           <a class="qcard" href="listing.html?tag=adventure">
-            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1400&auto=format&fit=crop" alt="Adventure"><span data-i18n="qc.adventure">Adventure</span>
+            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1400&auto=format&fit=crop" alt=""><span data-i18n="qc.adventure">Adventure</span>
           </a>
           <a class="qcard" href="listing.html?city=Barcelona">
-            <img src="https://images.unsplash.com/photo-1511735111819-9a3f7709049c?q=80&w=1400&auto=format&fit=crop" alt="Barcelona"><span>Barcelona</span>
+            <img src="https://images.unsplash.com/photo-1511735111819-9a3f7709049c?q=80&w=1400&auto=format&fit=crop" alt=""><span>Barcelona</span>
           </a>
           <a class="qcard" href="listing.html?city=Madrid">
-            <img src="https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?q=80&w=1400&auto=format&fit=crop" alt="Madrid"><span>Madrid</span>
+            <img src="https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?q=80&w=1400&auto=format&fit=crop" alt=""><span>Madrid</span>
           </a>
           <a class="qcard" href="listing.html">
-            <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=1400&auto=format&fit=crop" alt="See all"><span data-i18n="qc.all">See all</span>
+            <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=1400&auto=format&fit=crop" alt=""><span data-i18n="qc.all">See all</span>
           </a>
         </div>
       </div>
