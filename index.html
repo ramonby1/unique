@@ -9,20 +9,20 @@
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <a class="logo" href="/unique/">Unique</a>
+      <a class="logo" href="/unique/" data-i18n="brand">Unique</a>
 
       <nav class="nav" aria-label="Main">
         <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">☰</button>
         <ul id="nav-menu" class="menu">
-          <li><a href="destinations.html">Destinations</a></li>
-          <li><a href="listing.html">Getaways</a></li>
+          <li><a href="destinations.html" data-i18n="menu.destinations">Destinations</a></li>
+          <li><a href="listing.html" data-i18n="menu.experiences">Experiences</a></li>
 
           <li class="has-dropdown">
-            <a href="#">24/7 Help</a>
+            <a href="#" data-i18n="menu.help">24/7 Help</a>
             <ul class="dropdown">
-              <li><a href="#" id="help-webchat">Web chat</a></li>
-              <li><a href="https://wa.me/" target="_blank" rel="noopener">WhatsApp</a></li>
-              <li><a href="tel:+000000000">Phone call</a></li>
+              <li><a href="#" id="help-webchat" data-i18n="help.webchat">Web chat</a></li>
+              <li><a href="https://wa.me/" target="_blank" rel="noopener" data-i18n="help.whatsapp">WhatsApp</a></li>
+              <li><a href="tel:+000000000" data-i18n="help.phone">Phone call</a></li>
             </ul>
           </li>
 
@@ -46,12 +46,12 @@
           <li class="has-dropdown">
             <a href="#" aria-label="Account">👤</a>
             <ul class="dropdown">
-              <li><a href="#" id="nav-register">Register</a></li>
-              <li><a href="#" id="nav-signin">Sign in</a></li>
+              <li><a href="#" id="nav-register" data-i18n="auth.register">Register</a></li>
+              <li><a href="#" id="nav-signin" data-i18n="auth.signin">Sign in</a></li>
             </ul>
           </li>
 
-          <li><a class="cart-link" href="checkout.html">🛒 Cart <span id="cart-count">0</span></a></li>
+          <li><a class="cart-link" href="checkout.html">🛒 <span data-i18n="menu.cart">Cart</span> <span id="cart-count">0</span></a></li>
         </ul>
       </nav>
     </div>
@@ -60,14 +60,14 @@
   <main>
     <section class="hero">
       <div class="container hero-inner">
-        <h1>Unique getaways at the best price</h1>
-        <p>Find your next experience with stays, spa and more.</p>
+        <h1 data-i18n="hero.title">Unique getaways at the best price</h1>
+        <p data-i18n="hero.subtitle">Find your next experience with stays, spa and more.</p>
 
         <!-- SEARCH BAR -->
         <form class="search" action="listing.html" method="get">
-          <!-- DESTINATION (Tesco-style two-level) -->
+          <!-- DESTINATION -->
           <label class="has-mega">
-            <span>Destination</span>
+            <span data-i18n="form.destination">Destination</span>
             <input id="destino" type="text" name="q" placeholder="City or region" autocomplete="off" />
             <div class="mega-panel solid" id="form-destinations" role="menu" aria-label="Destinations">
               <div class="mega-inner form">
@@ -82,50 +82,55 @@
             </div>
           </label>
 
-          <!-- ONE DATE FIELD (range) -->
+          <!-- ONE DATE FIELD (RANGE) -->
           <label class="has-daterange">
-            <span>Dates</span>
+            <span data-i18n="form.dates">Dates</span>
             <input id="dates" type="text" placeholder="dd/mm/yyyy – dd/mm/yyyy" readonly />
-            <!-- Hidden fields submitted to the server -->
-            <input id="checkin" name="checkin" type="hidden" />
+            <input id="checkin"  name="checkin"  type="hidden" />
             <input id="checkout" name="checkout" type="hidden" />
             <div id="date-range" class="range-panel"></div>
           </label>
 
+          <!-- THEME -->
+          <label>
+            <span data-i18n="form.theme">Theme</span>
+            <select id="theme" name="theme"></select>
+          </label>
+
           <!-- GUESTS -->
           <label class="guests-narrow has-guests">
-            <span>Guests</span>
+            <span data-i18n="form.guests">Guests</span>
             <div class="guests-field"><span class="icon">👥</span><input id="guests" type="text" value="2" readonly /></div>
             <div id="guests-panel" class="guests-panel">
               <div class="row">
-                <div class="label">Adults<br><small>12+ years</small></div>
+                <div class="label" data-i18n="guests.adults">Adults<br><small>12+ years</small></div>
                 <div class="ctrl"><button type="button" data-g="-1" data-k="adults">-</button><span id="gv-adults">2</span><button type="button" data-g="+1" data-k="adults">+</button></div>
               </div>
               <div class="row">
-                <div class="label">Children<br><small>Under 12</small></div>
+                <div class="label" data-i18n="guests.children">Children<br><small>Under 12</small></div>
                 <div class="ctrl"><button type="button" data-g="-1" data-k="children">-</button><span id="gv-children">0</span><button type="button" data-g="+1" data-k="children">+</button></div>
               </div>
               <div class="row">
-                <div class="label">Babies<br><small>Under 2</small></div>
+                <div class="label" data-i18n="guests.babies">Babies<br><small>Under 2</small></div>
                 <div class="ctrl"><button type="button" data-g="-1" data-k="babies">-</button><span id="gv-babies">0</span><button type="button" data-g="+1" data-k="babies">+</button></div>
               </div>
-              <div class="row confirm"><button type="button" id="guests-ok" class="btn">Confirm</button></div>
+              <div class="row confirm"><button type="button" id="guests-ok" class="btn" data-i18n="actions.confirm">Confirm</button></div>
             </div>
           </label>
 
-          <button class="btn" type="submit">Search</button>
+          <button class="btn" type="submit" data-i18n="actions.search">Search</button>
         </form>
 
         <!-- QUICK CATEGORIES -->
         <div class="quick-cats">
           <a class="qcard" href="listing.html?tag=romantic">
-            <img src="https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?q=80&w=1400&auto=format&fit=crop" alt="Romantic"><span>Romantic</span>
+            <img src="https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?q=80&w=1400&auto=format&fit=crop" alt="Romantic"><span data-i18n="qc.romantic">Romantic</span>
           </a>
           <a class="qcard" href="listing.html?tag=spa">
-            <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1400&auto=format&fit=crop" alt="Spa & Relax"><span>Spa & Relax</span>
+            <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1400&auto=format&fit=crop" alt="Spa & Relax"><span data-i18n="qc.spa">Spa & Relax</span>
           </a>
           <a class="qcard" href="listing.html?tag=adventure">
-            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1400&auto=format&fit=crop" alt="Adventure"><span>Adventure</span>
+            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1400&auto=format&fit=crop" alt="Adventure"><span data-i18n="qc.adventure">Adventure</span>
           </a>
           <a class="qcard" href="listing.html?city=Barcelona">
             <img src="https://images.unsplash.com/photo-1511735111819-9a3f7709049c?q=80&w=1400&auto=format&fit=crop" alt="Barcelona"><span>Barcelona</span>
@@ -134,7 +139,7 @@
             <img src="https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?q=80&w=1400&auto=format&fit=crop" alt="Madrid"><span>Madrid</span>
           </a>
           <a class="qcard" href="listing.html">
-            <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=1400&auto=format&fit=crop" alt="See all"><span>See all</span>
+            <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=1400&auto=format&fit=crop" alt="See all"><span data-i18n="qc.all">See all</span>
           </a>
         </div>
       </div>
@@ -142,8 +147,8 @@
 
     <section class="container section">
       <div class="section-head">
-        <h2>This week’s highlights</h2>
-        <a class="link" href="listing.html">View all</a>
+        <h2 data-i18n="section.highlights">This week’s highlights</h2>
+        <a class="link" href="listing.html" data-i18n="actions.viewAll">View all</a>
       </div>
       <div id="featured" class="grid cards"></div>
     </section>
@@ -151,7 +156,7 @@
 
   <footer class="site-footer">
     <div class="container">
-      <small>© <span id="year"></span> Unique · Demo</small>
+      <small>© <span id="year"></span> <span data-i18n="brand">Unique</span> · <span data-i18n="footer.demo">Demo</span></small>
     </div>
   </footer>
 
