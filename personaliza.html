@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Personaliza tu viaje — Unique</title>
+  <link rel="icon" type="image/png" href="./assets/img/icon.png" />
+  <link rel="stylesheet" href="./assets/css/styles.css?v=3" />
+  <style>
+    .layout{display:grid;grid-template-columns:20% 20% 60%;min-height:100svh}
+    .pane{border-right:1px solid #ececf3;background:#fff}
+    .pane h4{margin:16px}
+    .pane .blk{padding:10px 16px;border-top:1px dashed #eee}
+    .pane button{width:100%;text-align:left;border:0;background:#fff;padding:10px;border-radius:10px;cursor:pointer}
+    .pane button:hover{background:#f6f7fb}
+    .list{padding:12px;height:calc(100svh - 64px);overflow:auto}
+    .list .item{border:1px solid #eee;border-radius:12px;padding:10px;margin:8px 0;cursor:pointer;background:#fff}
+    .gallery{padding:16px;background:linear-gradient(180deg,#fff,var(--beige))}
+    .gallery .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .gallery .card{background:#fff;border:1px solid #eee;border-radius:12px;overflow:hidden}
+    .gallery .card img{width:100%;height:160px;object-fit:cover}
+    .gallery .card .pad{padding:10px}
+    @media (max-width:900px){.layout{grid-template-columns:1fr}; .gallery .grid{grid-template-columns:1fr}}
+  </style>
+  <script defer>
+    document.addEventListener('DOMContentLoaded',()=>{
+      // calendario simple
+      const cal = document.querySelector('#p_date');
+      cal.valueAsDate = new Date();
+
+      const data = {
+        hoteles:['Boutique','Resort','Rural','Adults only','Wellness'],
+        destinos:['Mallorca','Menorca','Ibiza','Formentera','Gran Canaria','Costa Brava'],
+        actividades:['Navegación','Spa','Tablao','Paddle','Espeleología','Delfines','Globo']
+      };
+
+      const list = document.querySelector('#paneB .list');
+      let mode = 'hoteles';
+      function renderList(){
+        list.innerHTML = data[mode].map(v=>`<div class="item" data-v="${v}">${v}</div>`).join('');
+        document.querySelectorAll('#paneB .item').forEach(it=>{
+          it.addEventListener('click',()=>fillGallery(it.dataset.v));
+        });
+      }
+      function fillGallery(tag){
+        const g = document.querySelector('#galGrid');
+        const pics = [
+          'https://images.unsplash.com/photo-1551776235-dde6d4829808?q=80&w=1200&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1496412705862-e0088f16f791?q=80&w=1200&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1505692794403-34d4982f88aa?q=80&w=1200&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?q=80&w=1200&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1200&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1543363136-43b7deed3b29?q=80&w=1200&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1596464716121-f7c9a2b805d6?q=80&w=1200&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1556228724-4c1e0c1a5141?q=80&w=1200&auto=format&fit=crop'
+        ];
+        g.innerHTML = pics.map((src,i)=>`
+          <div class="card">
+            <img src="${src}" alt="">
+            <div class="pad">
+              <h3>${tag} ${i+1}</h3>
+              <p>Lorem ipsum dolor sit amet.</p>
+            </div>
+          </div>`).join('');
+      }
+
+      // acciones en A
+      document.querySelector('#btn_hoteles').onclick = ()=>{ mode='hoteles'; renderList(); };
+      document.querySelector('#btn_destinos').onclick = ()=>{ mode='destinos'; renderList(); };
+      document.querySelector('#btn_acts').onclick    = ()=>{ mode='actividades'; renderList(); };
+
+      renderList();
+      fillGallery('Recomendado');
+    });
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <img src="assets/img/icon.png" alt="Unique" class="brand-icon" />
+        <span>Unique</span>
+      </a>
+      <nav class="top-nav">
+        <a class="nav-link" href="index.html">Inicio</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="layout">
+    <!-- Pane A -->
+    <aside class="pane" id="paneA">
+      <h4>Personaliza tu viaje</h4>
+
+      <div class="blk">
+        <label>Fechas</label>
+        <input id="p_date" type="date" style="width:100%;height:40px;border:1px solid #e8e8ef;border-radius:10px;padding:0 10px" />
+      </div>
+
+      <div class="blk">
+        <label>Origen</label>
+        <input type="text" placeholder="Ciudad o aeropuerto" style="width:100%;height:40px;border:1px solid #e8e8ef;border-radius:10px;padding:0 10px" />
+      </div>
+
+      <div class="blk">
+        <button id="btn_hoteles">Hoteles</button>
+      </div>
+      <div class="blk">
+        <button id="btn_destinos">Destino</button>
+      </div>
+      <div class="blk">
+        <button id="btn_acts">Actividades</button>
+      </div>
+    </aside>
+
+    <!-- Pane B -->
+    <aside class="pane" id="paneB">
+      <h4>Opciones</h4>
+      <div class="list"></div>
+    </aside>
+
+    <!-- Galería -->
+    <main class="gallery">
+      <h2>Galería</h2>
+      <div class="grid" id="galGrid"></div>
+    </main>
+  </div>
+</body>
+</html>
