@@ -1,185 +1,94 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Personaliza tu viaje — Unique</title>
-  <link rel="icon" type="image/png" href="./assets/img/icon.png" />
-  <link rel="stylesheet" href="./assets/css/styles.css?v=4" />
-  <style>
-    .layout{display:grid;grid-template-columns:20% 20% 60%;min-height:100svh}
-    .pane{border-right:1px solid #ececf3;background:#fff}
-    .pane h4{margin:16px}
-    .pane .blk{padding:10px 16px;border-top:1px dashed #eee}
-    .pane button, .pane select{width:100%;text-align:left;border:1px solid #e8e8ef;background:#fff;padding:10px;border-radius:10px;cursor:pointer}
-    .list{padding:12px;height:calc(100svh - 64px);overflow:auto}
-    .list .item{border:1px solid #eee;border-radius:12px;padding:10px;margin:8px 0;cursor:pointer;background:#fff}
-    .gallery{padding:16px;background:linear-gradient(180deg,#fff,var(--beige))}
-    .gallery .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .gallery .card{background:#fff;border:1px solid #eee;border-radius:16px;overflow:hidden}
-    .gallery .card img{width:100%;height:260px;object-fit:cover}
-    .gallery .card .pad{padding:12px}
-    @media (max-width:900px){.layout{grid-template-columns:1fr}; .gallery .grid{grid-template-columns:1fr}}
-    /* calendario en A */
-    #pzCal{display:none;position:absolute;z-index:5;background:#fff;border:1px solid #e8e8ef;border-radius:16px;box-shadow:var(--ring);padding:14px;margin-top:6px}
-    #pzCal .wrap{display:flex;gap:16px}
-    #pzCal h4{margin:6px 0 10px}
-    #pzCal .grid.cal{display:grid;grid-template-columns:repeat(7,40px);gap:6px}
-    #pzCal .grid.cal span{height:40px}
-    #pzCal .day{height:40px;border:1px solid #eef0f6;border-radius:10px;background:#fff;cursor:pointer}
-    #pzCal .day.sel{background:var(--brand);color:#fff;border-color:var(--brand)}
-    #pzCal .day.rng{background:rgba(254,230,202,.7);border-color:rgba(254,230,202,.9)}
-  </style>
-  <script defer src="./assets/js/main.js?v=4"></script>
-  <script defer>
-    document.addEventListener('DOMContentLoaded',()=>{
-      /* Pane B dataset */
-      const data = {
-        hoteles:['Boutique','Resort','Rural','Adults only','Wellness','Urbano'],
-        destinos:['Mallorca','Menorca','Ibiza','Formentera','Gran Canaria','Costa Brava'],
-        actividades:['Navegación','Spa','Tablao','Paddle','Espeleología','Delfines','Globo']
-      };
-      const list = document.querySelector('#paneB .list');
-      let mode = 'hoteles';
-      function renderList(){
-        list.innerHTML = data[mode].map(v=>`<div class="item" data-v="${v}">${v}</div>`).join('');
-        document.querySelectorAll('#paneB .item').forEach(it=>{
-          it.addEventListener('click',()=>fillGallery(it.dataset.v));
-        });
-      }
-      function fillGallery(tag){
-        const g = document.querySelector('#galGrid');
-        const pics = [
-          'https://images.unsplash.com/photo-1551776235-dde6d4829808?q=80&w=1600&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1496412705862-e0088f16f791?q=80&w=1600&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1505692794403-34d4982f88aa?q=80&w=1600&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?q=80&w=1600&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1600&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1543363136-43b7deed3b29?q=80&w=1600&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1596464716121-f7c9a2b805d6?q=80&w=1600&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1556228724-4c1e0c1a5141?q=80&w=1600&auto=format&fit=crop'
-        ];
-        g.innerHTML = pics.map((src,i)=>`
-          <div class="card">
-            <img src="${src}" alt="">
-            <div class="pad">
-              <h3>${tag} ${i+1}</h3>
-              <p>Inspiración para tu viaje.</p>
-            </div>
-          </div>`).join('');
-      }
-
-      // Acciones A
-      document.querySelector('#btn_hoteles').onclick = ()=>{ mode='hoteles'; renderList(); };
-      document.querySelector('#btn_destinos').onclick = ()=>{ mode='destinos'; renderList(); };
-      document.querySelector('#btn_acts').onclick    = ()=>{ mode='actividades'; renderList(); };
-      renderList(); fillGallery('Recomendado');
-
-      /* Calendario tipo civitatis para Personaliza */
-      const pzInput = document.getElementById('pzDateRange');
-      const pzCal   = document.getElementById('pzCal');
-      let start=null,end=null;
-
-      function renderMonth(base){
-        const d = new Date(base.getFullYear(), base.getMonth(),1);
-        const m = d.getMonth();
-        let html = `<div class="mcol"><h4>${d.toLocaleString('es-ES',{month:'long',year:'numeric'})}</h4><div class="grid cal">`;
-        const pad = (d.getDay()+6)%7;
-        for(let i=0;i<pad;i++) html += `<span></span>`;
-        while(d.getMonth()===m){
-          const ds = new Date(d);
-          const iso = ds.toISOString().slice(0,10);
-          html += `<button class="day" data-d="${iso}">${d.getDate()}</button>`;
-          d.setDate(d.getDate()+1);
-        }
-        html += `</div></div>`;
-        return html;
-      }
-      function openPz(){
-        if(pzCal.dataset.ready!=='1'){
-          const now = new Date();
-          const next = new Date(now.getFullYear(),now.getMonth()+1,1);
-          pzCal.innerHTML = `<div class="wrap">${renderMonth(now)}${renderMonth(next)}</div>`;
-          pzCal.dataset.ready='1';
-          pzCal.querySelectorAll('.day').forEach(b=>{
-            b.addEventListener('click',()=>{
-              const dt = new Date(b.dataset.d);
-              if(!start || (start && end)){ start=dt; end=null; }
-              else if(dt>=start){ end=dt; }
-              else { start=dt; end=null; }
-              pzCal.querySelectorAll('.day').forEach(x=>{
-                const dd = new Date(x.dataset.d);
-                x.classList.toggle('sel', +dd===+start || +dd===+end);
-                const inrange = start && end && dd>start && dd<end;
-                x.classList.toggle('rng', inrange);
-              });
-              if(start && end){
-                pzInput.value = `${('0'+start.getDate()).slice(-2)}/${('0'+(start.getMonth()+1)).slice(-2)}/${start.getFullYear()} - ${('0'+end.getDate()).slice(-2)}/${('0'+(end.getMonth()+1)).slice(-2)}/${end.getFullYear()}`;
-                pzCal.style.display='none';
-              }
-            });
-          });
-        }
-        pzCal.style.display='block';
-      }
-      pzInput.addEventListener('click',openPz);
-      document.getElementById('blkDate').addEventListener('mouseleave',()=>pzCal.style.display='none');
-    });
-  </script>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Unique — Personaliza tu viaje</title>
+  <link rel="icon" type="image/png" href="./assets/img/icon.png"/>
+  <link rel="stylesheet" href="./assets/css/styles.css?v=2"/>
+  <script defer src="./assets/js/main.js?v=2"></script>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="index.html">
-        <img src="assets/img/icon.png" alt="Unique" class="brand-icon" />
-        <span>Unique</span>
-      </a>
-      <nav class="top-nav">
-        <a class="nav-link" href="index.html">Inicio</a>
-      </nav>
-    </div>
-  </header>
 
-  <div class="layout">
-    <!-- Pane A -->
-    <aside class="pane" id="paneA">
-      <h4>Personaliza tu viaje</h4>
-
-      <div class="blk" id="blkDate" style="position:relative">
-        <label>Fechas</label>
-        <input id="pzDateRange" type="text" placeholder="Selecciona fechas" readonly style="width:100%;height:44px;border:1px solid #e8e8ef;border-radius:10px;padding:0 10px" />
-        <div id="pzCal"></div>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html">
+      <img src="assets/img/icon.png" class="brand-icon" alt="Unique"/>
+      <span>Unique</span>
+    </a>
+    <nav class="top-nav">
+      <a class="nav-link" href="customize.html">Personaliza tu viaje</a>
+      <div class="dropdown">
+        <div class="nav-pill">ES</div>
+        <ul class="dropdown-menu right">
+          <li><button type="button" class="lang-switch" data-lang="es">ES (Español)</button></li>
+          <li><button type="button" class="lang-switch" data-lang="en">EN (English)</button></li>
+        </ul>
       </div>
-
-      <div class="blk">
-        <label>Origen</label>
-        <select id="pzOrigin">
-          <option value="LHR">Londres-Heathrow (LHR)</option>
-          <option value="LGW">Londres-Gatwick (LGW)</option>
-          <option value="LCY">London City Airport (LCY)</option>
-          <option value="MAN">Manchester (MAN)</option>
-          <option value="BHX">Birmingham (BHX)</option>
-          <option value="LPL">Liverpool (LPL)</option>
-        </select>
-      </div>
-
-      <div class="blk"><button id="btn_hoteles">Hoteles</button></div>
-      <div class="blk"><button id="btn_destinos">Destino</button></div>
-      <div class="blk"><button id="btn_acts">Actividades</button></div>
-    </aside>
-
-    <!-- Pane B -->
-    <aside class="pane" id="paneB">
-      <h4>Opciones</h4>
-      <div class="list"></div>
-    </aside>
-
-    <!-- Galería -->
-    <main class="gallery">
-      <h2>Galería</h2>
-      <div class="grid" id="galGrid"></div>
-    </main>
+      <a class="nav-pill" href="index.html#cart">🛒 Carrito 0</a>
+    </nav>
   </div>
+</header>
+
+<!-- Layout A (20%) B (20%) Galería (60%) -->
+<section class="section">
+  <div class="container" style="max-width:1400px">
+    <div style="display:grid;grid-template-columns:20% 20% 1fr;gap:16px;min-height:70svh">
+
+      <!-- Sección A -->
+      <aside style="display:flex;flex-direction:column;gap:14px">
+        <!-- Fechas -->
+        <div class="field" id="cxDateField">
+          <label><strong>Fechas</strong></label>
+          <input id="cxDateInput" type="text" readonly placeholder="¿Cuándo?"/>
+          <div class="calendar" id="cxDatePicker">
+            <div class="wrap">
+              <div>
+                <h4 data-cal-month="0"></h4>
+                <div class="grid cal" data-cal="0"></div>
+              </div>
+              <div>
+                <h4 data-cal-month="1"></h4>
+                <div class="grid cal" data-cal="1"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Origen -->
+        <div class="field select" id="originField" tabindex="0">
+          <label><strong>Origen</strong></label>
+          <span id="originLabel">Selecciona aeropuerto</span>
+          <ul class="select-menu" id="originMenu">
+            <li data-val="LHR">Londres-Heathrow (LHR)</li>
+            <li data-val="LGW">Londres-Gatwick (LGW)</li>
+            <li data-val="LCY">London City Airport (LCY)</li>
+            <li data-val="MAN">Manchester (MAN)</li>
+            <li data-val="BHX">Birmingham (BHX)</li>
+            <li data-val="LPL">Liverpool (LPL)</li>
+          </ul>
+        </div>
+
+        <hr/>
+
+        <button class="btn ghost" type="button" id="tabHotels">Hoteles</button>
+        <button class="btn ghost" type="button" id="tabDest">Destino</button>
+        <button class="btn ghost" type="button" id="tabActs">Actividades</button>
+      </aside>
+
+      <!-- Sección B (lista) -->
+      <aside id="cxList" style="background:#fff;border:1px solid #eee;border-radius:12px;padding:10px;overflow:auto">
+        <!-- Rellenado por JS según pestaña -->
+      </aside>
+
+      <!-- Galería (cards 3x3) -->
+      <main id="cxGallery" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+        <!-- Rellenado por JS -->
+      </main>
+
+    </div>
+  </div>
+</section>
+
 </body>
 </html>
