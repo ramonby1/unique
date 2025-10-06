@@ -27,6 +27,13 @@ linear-gradient(180deg,var(--beige) 0,#fff 18%,#fff 82%,var(--beige) 100%);}
 .top-nav{display:flex;gap:14px;align-items:center}
 .nav-link{color:#111;text-decoration:none}
 .nav-pill{display:flex;gap:8px;align-items:center;background:#fff;border:1px solid #eaeaea;border-radius:999px;padding:8px 12px;cursor:pointer}
+/* Tamaño fijo para banderas en la pill de idioma */
+.nav-pill img{
+  width: 18px;
+  height: 18px;
+  object-fit: cover;
+  vertical-align: middle;
+}
 .dropdown{position:relative}
 .dropdown-menu{display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid #eee;border-radius:10px;min-width:210px;box-shadow:var(--ring);padding:6px;margin-top:6px}
 .dropdown-menu.right{left:auto;right:0}
