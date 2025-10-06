@@ -42,7 +42,7 @@
     <div class="container hero-inner">
       <img class="hero-logo" src="assets/img/Logo.png" alt="Unique Experiences" />
       <form class="search" action="listing.html" method="get">
-        <!-- DESTINO (2 niveles estilo Tesco) -->
+        <!-- DESTINO -->
         <label class="has-mega">
           <span>Destino</span>
           <input id="destino" type="text" name="q" autocomplete="off" placeholder="¿A dónde quieres viajar?" />
@@ -59,7 +59,7 @@
           </div>
         </label>
 
-        <!-- FECHAS: un solo campo (rango, 2 meses) -->
+        <!-- FECHAS (rango) -->
         <label class="has-daterange">
           <span>Fechas</span>
           <input id="dates" type="text" readonly placeholder="¿Cuándo?" />
@@ -103,51 +103,115 @@
         <button class="btn" type="submit">Buscar</button>
       </form>
     </div>
+    <a href="#top-destinations" class="down-arrow" aria-label="Ir a la siguiente sección">↓</a>
   </section>
 
-  <!-- PRINCIPALES DESTINOS (pantalla entera) -->
-  <section class="fullvh section-alt" id="top-destinations">
+  <!-- PRINCIPALES DESTINOS (2x3) -->
+  <section class="section-alt pad-top fullscreenish" id="top-destinations">
     <div class="container">
       <h2 class="section-title">Principales destinos</h2>
     </div>
-    <div class="grid6">
-      <a class="tile big"   style="--img:url('https://images.unsplash.com/photo-1526392060635-9d6019884377?q=80&w=1600&auto=format&fit=crop')" href="listing.html?city=Mallorca"><span>Mallorca</span></a>
-      <a class="tile"       style="--img:url('https://images.unsplash.com/photo-1529694157871-338dd8f5f8b3?q=80&w=1600&auto=format&fit=crop')" href="listing.html?city=Menorca"><span>Menorca</span></a>
-      <a class="tile"       style="--img:url('https://images.unsplash.com/photo-1545134969-8debd725b007?q=80&w=1600&auto=format&fit=crop')" href="listing.html?city=Ibiza"><span>Ibiza</span></a>
-      <a class="tile"       style="--img:url('https://images.unsplash.com/photo-1594041680534-3f5573b36ad6?q=80&w=1600&auto=format&fit=crop')" href="listing.html?city=Formentera"><span>Formentera</span></a>
-      <a class="tile"       style="--img:url('https://images.unsplash.com/photo-1533681018184-68bd1d883546?q=80&w=1600&auto=format&fit=crop')" href="listing.html?city=Gran%20Canaria"><span>Gran Canaria</span></a>
-      <a class="tile wide"  style="--img:url('https://images.unsplash.com/photo-1528127269322-539801943592?q=80&w=1600&auto=format&fit=crop')" href="listing.html?city=Costa%20Brava"><span>Costa Brava</span></a>
+    <div class="grid6 grid-2rows">
+      <a class="tile" style="--img:url('https://images.unsplash.com/photo-1526392060635-9d6019884377?q=80&w=1600&auto=format&fit=crop')" href="listing.html?city=Mallorca"><span>Mallorca</span></a>
+      <a class="tile" style="--img:url('https://images.unsplash.com/photo-1529694157871-338dd8f5f8b3?q=80&w=1600&auto=format&fit=crop')" href="listing.html?city=Menorca"><span>Menorca</span></a>
+      <a class="tile" style="--img:url('https://images.unsplash.com/photo-1545134969-8debd725b007?q=80&w=1600&auto=format&fit=crop')" href="listing.html?city=Ibiza"><span>Ibiza</span></a>
+      <a class="tile" style="--img:url('https://images.unsplash.com/photo-1594041680534-3f5573b36ad6?q=80&w=1600&auto=format&fit=crop')" href="listing.html?city=Formentera"><span>Formentera</span></a>
+      <a class="tile" style="--img:url('https://images.unsplash.com/photo-1533681018184-68bd1d883546?q=80&w=1600&auto=format&fit=crop')" href="listing.html?city=Gran%20Canaria"><span>Gran Canaria</span></a>
+      <a class="tile" style="--img:url('https://images.unsplash.com/photo-1528127269322-539801943592?q=80&w=1600&auto=format&fit=crop')" href="listing.html?city=Costa%20Brava"><span>Costa Brava</span></a>
     </div>
+    <div class="container section-cta">
+      <a class="btn" href="destinos.html">Ver todos los destinos</a>
+    </div>
+    <a href="#top-activities" class="down-arrow">↓</a>
   </section>
 
-  <!-- ACTIVIDADES MAS DESTACADAS -->
-  <section class="fullvh">
+  <!-- ACTIVIDADES -->
+  <section class="pad-top fullscreenish" id="top-activities">
     <div class="container">
       <h2 class="section-title">Actividades más destacadas</h2>
     </div>
-    <div class="grid6">
-      <a class="tile"      style="--img:url('https://images.unsplash.com/photo-1529963183130-c6c4ca2b9b24?q=80&w=1600&auto=format&fit=crop')" href="listing.html?tag=barco"><span>Paseo en barco</span></a>
-      <a class="tile"      style="--img:url('https://images.unsplash.com/photo-1473116763249-2faaef81ccda?q=80&w=1600&auto=format&fit=crop')" href="listing.html?tag=flamenco"><span>Tablao flamenco</span></a>
-      <a class="tile"      style="--img:url('https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?q=80&w=1600&auto=format&fit=crop')" href="listing.html?tag=paddlesurf"><span>Paddle surf</span></a>
-      <a class="tile"      style="--img:url('https://images.unsplash.com/photo-1520986606214-8b456906c813?q=80&w=1600&auto=format&fit=crop')" href="listing.html?tag=espeleologia"><span>Espeleología</span></a>
-      <a class="tile"      style="--img:url('https://images.unsplash.com/photo-1501621667575-af81f1f0bacc?q=80&w=1600&auto=format&fit=crop')" href="listing.html?tag=delfines"><span>Avistamiento de delfines</span></a>
-      <a class="tile"      style="--img:url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1600&auto=format&fit=crop')" href="listing.html?tag=globo"><span>Paseo en globo</span></a>
+    <div class="grid6 grid-2rows">
+      <a class="tile" style="--img:url('https://images.unsplash.com/photo-1529963183130-c6c4ca2b9b24?q=80&w=1600&auto=format&fit=crop')" href="listing.html?tag=barco"><span>Paseo en barco</span></a>
+      <a class="tile" style="--img:url('https://images.unsplash.com/photo-1473116763249-2faaef81ccda?q=80&w=1600&auto=format&fit=crop')" href="listing.html?tag=flamenco"><span>Tablao flamenco</span></a>
+      <a class="tile" style="--img:url('https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?q=80&w=1600&auto=format&fit=crop')" href="listing.html?tag=paddlesurf"><span>Paddle surf</span></a>
+      <a class="tile" style="--img:url('https://images.unsplash.com/photo-1520986606214-8b456906c813?q=80&w=1600&auto=format&fit=crop')" href="listing.html?tag=espeleologia"><span>Espeleología</span></a>
+      <a class="tile" style="--img:url('https://images.unsplash.com/photo-1501621667575-af81f1f0bacc?q=80&w=1600&auto=format&fit=crop')" href="listing.html?tag=delfines"><span>Avistamiento de delfines</span></a>
+      <a class="tile" style="--img:url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1600&auto=format&fit=crop')" href="listing.html?tag=globo"><span>Paseo en globo</span></a>
     </div>
+    <div class="container section-cta">
+      <a class="btn" href="experiencias.html">Ver todas las actividades</a>
+    </div>
+    <a href="#hotels" class="down-arrow">↓</a>
+  </section>
+
+  <!-- HOTELES (cards horizontales/carrusel) -->
+  <section class="pad-top section-alt" id="hotels">
+    <div class="container">
+      <h2 class="section-title">Hoteles recomendados</h2>
+    </div>
+    <div class="hotel-row">
+      <article class="hotel-card" style="--img:url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1600&auto=format&fit=crop')">
+        <span class="badge">Top Ventas</span>
+        <div class="hc-body">
+          <h3>Alcudia Bay Resort</h3>
+          <p>Mallorca · Spa & Relax</p>
+          <div class="hc-price">Desde <strong>€129</strong></div>
+        </div>
+      </article>
+      <article class="hotel-card" style="--img:url('https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=1600&auto=format&fit=crop')">
+        <span class="badge">Top Ventas</span>
+        <div class="hc-body">
+          <h3>Menorca Marina Suites</h3>
+          <p>Menorca · Adults Only</p>
+          <div class="hc-price">Desde <strong>€149</strong></div>
+        </div>
+      </article>
+      <article class="hotel-card" style="--img:url('https://images.unsplash.com/photo-1519822471329-23c0a8f2d6d8?q=80&w=1600&auto=format&fit=crop')">
+        <span class="badge">Oferta Flash</span>
+        <div class="hc-body">
+          <h3>Ibiza White Sand</h3>
+          <p>Ibiza · Beachfront</p>
+          <div class="hc-price">Desde <strong>€199</strong></div>
+        </div>
+      </article>
+      <article class="hotel-card" style="--img:url('https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1600&auto=format&fit=crop')">
+        <span class="badge">Top Ventas</span>
+        <div class="hc-body">
+          <h3>Formentera Blue</h3>
+          <p>Formentera · Boutique</p>
+          <div class="hc-price">Desde <strong>€179</strong></div>
+        </div>
+      </article>
+      <article class="hotel-card" style="--img:url('https://images.unsplash.com/photo-1501117716987-c8e002a3c2d2?q=80&w=1600&auto=format&fit=crop')">
+        <span class="badge">Top Ventas</span>
+        <div class="hc-body">
+          <h3>Gran Canaria Heights</h3>
+          <p>Gran Canaria · Family</p>
+          <div class="hc-price">Desde <strong>€109</strong></div>
+        </div>
+      </article>
+    </div>
+    <div class="container section-cta">
+      <a class="btn" href="hoteles.html">Ver todos los hoteles</a>
+    </div>
+    <a href="#contact" class="down-arrow">↓</a>
   </section>
 
   <!-- CONTACTO -->
-  <section class="section">
-    <div class="container contact-wrap" id="contact">
+  <section class="section" id="contact">
+    <div class="container contact-wrap contact-compact">
       <div>
         <h3>Contacto</h3>
         <p><strong>Email:</strong> <a href="mailto:info@experiencesunique.com">info@experiencesunique.com</a></p>
-        <p><strong>Tel (UK):</strong> <a href="tel:+447511356928">+44 (0) 7511 356928</a></p>
-        <p><strong>Tel (ES):</strong> <a href="tel:+34685043871">+34 685 043 871</a></p>
+        <p><strong>Tel (UK):</strong> <a href="tel:+447511356928">+44 (0) 7511 356928</a><br>
+           <strong>Tel (ES):</strong> <a href="tel:+34685043871">+34 685 043 871</a></p>
       </div>
       <form class="contact-form" onsubmit="event.preventDefault();alert('¡Gracias! Te contactaremos en breve.');this.reset();">
-        <label>Nombre<input required></label>
-        <label>Email<input type="email" required></label>
-        <label>Mensaje<textarea rows="4" required></textarea></label>
+        <div class="row2">
+          <label>Nombre<input required></label>
+          <label>Email<input type="email" required></label>
+        </div>
+        <label>Mensaje<textarea rows="3" required></textarea></label>
         <button class="btn" type="submit">Enviar</button>
       </form>
     </div>
@@ -158,7 +222,6 @@
     <div class="container footer-grid">
       <div>
         <h4>UNIQUE</h4>
-        <p><a href="tel:+447511356928">+44 (0) 7511 356928</a><br><a href="tel:+34685043871">+34 685 043 871</a></p>
         <ul>
           <li><a href="about.html">Quiénes somos</a></li>
           <li><a href="faq.html">Preguntas frecuentes</a></li>
@@ -183,7 +246,9 @@
       </div>
       <div>
         <h4>Contacto</h4>
-        <p><a href="mailto:info@experiencesunique.com">info@experiencesunique.com</a></p>
+        <p><a href="mailto:info@experiencesunique.com">info@experiencesunique.com</a><br>
+        <a href="tel:+447511356928">+44 (0) 7511 356928</a><br>
+        <a href="tel:+34685043871">+34 685 043 871</a></p>
         <small>© <span id="year"></span> Unique</small>
       </div>
     </div>
