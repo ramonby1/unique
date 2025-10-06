@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unique · Hoteles</title>
+<link rel="icon" href="assets/img/icon.png"><link rel="stylesheet" href="assets/css/styles.css">
+</head><body>
+<header class="site-header"><div class="container header-inner"><a class="logo" href="index.html">Unique</a></div></header>
+
+<section class="pad-top">
+  <div class="container"><h1 class="section-title">Todos los hoteles</h1></div>
+  <div class="hotel-row">
+    <article class="hotel-card" style="--img:url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1600&auto=format&fit=crop')"><span class="badge">Top Ventas</span><div class="hc-body"><h3>Alcudia Bay Resort</h3><p>Mallorca · Spa & Relax</p><div class="hc-price">Desde <strong>€129</strong></div></div></article>
+    <article class="hotel-card" style="--img:url('https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=1600&auto=format&fit=crop')"><span class="badge">Top Ventas</span><div class="hc-body"><h3>Menorca Marina Suites</h3><p>Menorca · Adults Only</p><div class="hc-price">Desde <strong>€149</strong></div></div></article>
+    <article class="hotel-card" style="--img:url('https://images.unsplash.com/photo-1519822471329-23c0a8f2d6d8?q=80&w=1600&auto=format&fit=crop')"><span class="badge">Oferta Flash</span><div class="hc-body"><h3>Ibiza White Sand</h3><p>Ibiza · Beachfront</p><div class="hc-price">Desde <strong>€199</strong></div></div></article>
+    <article class="hotel-card" style="--img:url('https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1600&auto=format&fit=crop')"><span class="badge">Top Ventas</span><div class="hc-body"><h3>Formentera Blue</h3><p>Formentera · Boutique</p><div class="hc-price">Desde <strong>€179</strong></div></div></article>
+    <article class="hotel-card" style="--img:url('https://images.unsplash.com/photo-1501117716987-c8e002a3c2d2?q=80&w=1600&auto=format&fit=crop')"><span class="badge">Top Ventas</span><div class="hc-body"><h3>Gran Canaria Heights</h3><p>Gran Canaria · Family</p><div class="hc-price">Desde <strong>€109</strong></div></div></article>
+    <!-- duplica más cards según necesites -->
+  </div>
+</section>
+
+<footer class="site-footer"><div class="container footer-grid"><div><h4>UNIQUE</h4></div></div></footer>
+</body></html>
