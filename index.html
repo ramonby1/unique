@@ -5,243 +5,231 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Unique — Experiences</title>
 
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="./assets/img/icon.png"/>
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="./assets/css/styles.css?v=2"/>
-
-  <!-- JS -->
-  <script defer src="./assets/js/main.js?v=2"></script>
+  <link rel="stylesheet" href="./assets/css/styles.css?v=20"/>
+  <script defer src="./assets/js/main.js?v=20"></script>
 </head>
 <body>
 
-  <!-- ======= Header ======= -->
+  <!-- ===== Header ===== -->
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="index.html">
-        <img src="assets/img/icon.png" alt="Unique" class="brand-icon"/>
+      <a class="brand" href="./index.html">
+        <img class="brand-icon" src="./assets/img/icon.png" alt="Unique"/>
         <span>Unique</span>
       </a>
 
       <nav class="top-nav">
-        <a class="nav-link" href="customize.html" data-i18n="nav_customize">Personaliza tu viaje</a>
+        <a class="nav-link" href="./personaliza.html">Personaliza tu viaje</a>
+        <a class="nav-link" href="#help">Ayuda 24/7</a>
 
+        <!-- Idioma -->
         <div class="dropdown">
-          <div class="nav-pill" role="button" aria-haspopup="true">
-            <span data-i18n="nav_help">Ayuda 24/7</span>
-          </div>
+          <button class="nav-pill" aria-haspopup="true" aria-expanded="false">
+            <span class="flag es" aria-hidden="true"></span><span>ES</span>
+          </button>
           <ul class="dropdown-menu right">
-            <li><a href="#chat">Chat web</a></li>
-            <li><a href="https://web.whatsapp.com" target="_blank" rel="noopener">WhatsApp</a></li>
-            <li><a href="tel:+34685043871">+34 685 043 871</a></li>
+            <li><button class="lang-option" data-lang="es"><span class="flag es"></span> ES (Español)</button></li>
+            <li><button class="lang-option" data-lang="en"><span class="flag en"></span> EN (English)</button></li>
           </ul>
         </div>
 
+        <!-- Cuenta -->
         <div class="dropdown">
-          <div class="nav-pill">
-            <img src="assets/img/es-flag" alt="ES" class="lang-flag"/> ES
-          </div>
+          <button class="nav-pill" aria-haspopup="true" aria-expanded="false" title="Mi cuenta">
+            <span class="person-ico" aria-hidden="true"></span>
+          </button>
           <ul class="dropdown-menu right">
-            <li><button type="button" class="lang-switch" data-lang="es"><img src="assets/img/es-flag" class="lang-flag" alt="ES"/> ES (Español)</button></li>
-            <li><button type="button" class="lang-switch" data-lang="en"><img src="assets/img/en-flag" class="lang-flag" alt="EN"/> EN (English)</button></li>
+            <li><button type="button">Iniciar sesión</button></li>
+            <li><button type="button">Crear cuenta</button></li>
           </ul>
         </div>
 
-        <a class="nav-pill" href="#cart">
-          🛒 <span data-i18n="cart">Carrito</span> <strong>0</strong>
-        </a>
+        <!-- Carrito -->
+        <a class="nav-pill" href="./checkout.html">🛒 Carrito <b id="cartQty">0</b></a>
       </nav>
     </div>
   </header>
 
-  <!-- ======= HERO con VIDEO ======= -->
+  <!-- ===== HERO con vídeo ===== -->
   <section class="full-bleed">
-    <video class="hero-video" autoplay muted loop playsinline src="assets/img/video_home_mallorca_30_sec.mp4"></video>
+    <video class="hero-video" autoplay muted loop playsinline
+      poster="./assets/img/veleros-mallorca.jpg">
+      <source src="./assets/img/video_home_mallorca_30_sec.mp4" type="video/mp4"/>
+    </video>
 
     <div class="hero-overlay top">
-      <!-- Buscador compacto -->
-      <form class="searchbar" id="searchHome" action="customize.html">
-        <!-- DESTINO con mega-suggest -->
-        <div class="field has-suggest" id="destField">
-          <input id="destInput" type="text" placeholder="¿A dónde quieres viajar?"/>
+      <!-- Formulario estilo Exotica (píldoras pegadas) -->
+      <form class="searchbar pills" id="searchForm" action="./personaliza.html">
+        <!-- Destino con mega menú 2 niveles -->
+        <div class="field has-suggest">
+          <input id="destInput" type="text" placeholder="¿A dónde quieres viajar?" autocomplete="off"/>
           <div class="mega" id="destMega">
-            <div class="lvl1">
-              <button type="button" data-cat="Baleares">Baleares</button>
-              <button type="button" data-cat="Canarias">Canarias</button>
-              <button type="button" data-cat="Catalunya">Catalunya</button>
-              <button type="button" data-cat="Andorra">Andorra</button>
-              <button type="button" data-cat="Galicia">Galicia</button>
-              <button type="button" data-cat="Andalucía">Andalucía</button>
-              <button type="button" data-cat="Valencia">Valencia</button>
-            </div>
-            <div class="lvl2" id="destSub"></div>
+            <div class="lvl1" id="lvl1"></div>
+            <div class="lvl2" id="lvl2"></div>
           </div>
         </div>
 
-        <!-- FECHAS con calendario de rango -->
-        <div class="field" id="dateField">
+        <!-- Fecha con calendario a 2 meses y rango -->
+        <div class="field">
           <input id="dateInput" type="text" readonly placeholder="¿Cuándo?"/>
-          <div class="calendar" id="datePicker">
-            <div class="wrap">
-              <div>
-                <h4 data-cal-month="0"></h4>
-                <div class="grid cal" data-cal="0"></div>
-              </div>
-              <div>
-                <h4 data-cal-month="1"></h4>
-                <div class="grid cal" data-cal="1"></div>
-              </div>
-            </div>
+          <div class="calendar" id="calendar">
+            <div class="wrap" id="calWrap"></div>
           </div>
         </div>
 
-        <!-- TEMÁTICA (select custom) -->
-        <div class="field select" id="themeField" tabindex="0">
-          <span id="themeLabel">Cualquier temática</span>
-          <ul class="select-menu" id="themeMenu">
-            <li data-val="Deportes">Deportes</li>
-            <li data-val="Aventura">Aventura</li>
-            <li data-val="Gastro">Gastro</li>
-            <li data-val="Tour">Tour</li>
-            <li data-val="Recreativo">Recreativo</li>
-            <li data-val="Eventos">Eventos</li>
-            <li data-val="Bienestar">Bienestar</li>
-            <li data-val="En familia">En familia</li>
-            <li data-val="Todo incluido">Todo incluido</li>
-            <li data-val="Sol y Playa">Sol y Playa</li>
-            <li data-val="Escapadas a ciudad">Escapadas a ciudad</li>
-            <li data-val="Montaña y Esquí">Montaña y Esquí</li>
-            <li data-val="Lujo">Lujo</li>
-            <li data-val="Icónico">Icónico</li>
-            <li data-val="Acuático">Acuático</li>
-          </ul>
+        <!-- Temática sin viñetas -->
+        <div class="field">
+          <button type="button" class="select" id="themeBtn">Cualquier temática <span class="caret">▾</span></button>
+          <ul class="select-menu" id="themeMenu"></ul>
         </div>
 
-        <!-- GUESTS -->
-        <div class="field" id="guestsField">
-          <input id="guestsInput" type="text" readonly value="2"/>
+        <!-- Personas -->
+        <div class="field">
+          <button type="button" class="select" id="guestsBtn"><span>2</span></button>
           <div class="popover" id="guestsPop">
             <div class="row"><strong>Adultos</strong>
               <div class="qty">
-                <button type="button" data-qs="-1" data-target="ad">-</button>
-                <input id="g_ad" value="2"/>
-                <button type="button" data-qs="1" data-target="ad">+</button>
+                <button type="button" data-target="adults" data-op="-">−</button>
+                <input id="qtyAdults" value="2"/>
+                <button type="button" data-target="adults" data-op="+">+</button>
               </div>
             </div>
             <div class="row"><span>Menos de 12</span>
               <div class="qty">
-                <button type="button" data-qs="-1" data-target="ch">-</button>
-                <input id="g_ch" value="0"/>
-                <button type="button" data-qs="1" data-target="ch">+</button>
+                <button type="button" data-target="kids" data-op="-">−</button>
+                <input id="qtyKids" value="0"/>
+                <button type="button" data-target="kids" data-op="+">+</button>
               </div>
             </div>
             <div class="row"><span>Menos de 2</span>
               <div class="qty">
-                <button type="button" data-qs="-1" data-target="bb">-</button>
-                <input id="g_bb" value="0"/>
-                <button type="button" data-qs="1" data-target="bb">+</button>
+                <button type="button" data-target="babies" data-op="-">−</button>
+                <input id="qtyBabies" value="0"/>
+                <button type="button" data-target="babies" data-op="+">+</button>
               </div>
             </div>
-            <div class="act"><button type="button" id="gApply">Confirmar</button></div>
+            <div class="act"><button type="button" id="applyGuests">Confirmar</button></div>
           </div>
         </div>
 
-        <!-- SUBMIT -->
-        <button class="btn primary" type="submit" id="btnHomeSearch">Buscar</button>
+        <button class="btn primary search-btn" type="submit">Buscar</button>
       </form>
 
-      <!-- Logo debajo del formulario -->
-      <img class="hero-logo" src="assets/img/Logo.png" alt="Unique Experiences"/>
+      <img class="hero-logo" src="./assets/img/Logo.png" alt="Unique Experiences"/>
     </div>
   </section>
 
-  <!-- ======= PRINCIPALES DESTINOS ======= -->
-  <section class="section">
+  <!-- ===== PRINCIPALES DESTINOS (vignettes grandes 3×2) ===== -->
+  <section class="section" id="destinos">
     <div class="container">
       <h2>Principales destinos</h2>
-      <div class="grid six" id="destCards">
-        <!-- Rellenado por JS -->
+      <div class="grid six huge">
+        <a class="card hero" href="./destinations.html#mallorca">
+          <img src="./assets/img/mallorca-ciudad-istock.jpg" alt="Mallorca"/>
+          <span>Mallorca</span>
+        </a>
+        <a class="card hero" href="./destinations.html#menorca">
+          <img src="./assets/img/menorca.jpg" alt="Menorca"/>
+          <span>Menorca</span>
+        </a>
+        <a class="card hero" href="./destinations.html#ibiza">
+          <img src="./assets/img/ibiza-roca.jpg" alt="Ibiza"/>
+          <span>Ibiza</span>
+        </a>
+        <a class="card hero" href="./destinations.html#formentera">
+          <img src="./assets/img/formentera-ses-illetes.png" alt="Formentera"/>
+          <span>Formentera</span>
+        </a>
+        <a class="card hero" href="./destinations.html#grancanaria">
+          <img src="./assets/img/gran-canaria-arguineguin.jpg" alt="Gran Canaria"/>
+          <span>Gran Canaria</span>
+        </a>
+        <a class="card hero" href="./destinations.html#costabrava">
+          <img src="./assets/img/costa-brava-cadaques-barquito.jpg" alt="Costa Brava"/>
+          <span>Costa Brava</span>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- ======= ACTIVIDADES DESTACADAS ======= -->
-  <section class="section alt">
+  <!-- ===== ACTIVIDADES DESTACADAS (vignettes grandes 3×2) ===== -->
+  <section class="section alt" id="actividades">
     <div class="container">
       <h2>Actividades más destacadas</h2>
-      <div class="grid six" id="actCards">
-        <!-- Rellenado por JS -->
+      <div class="grid six huge">
+        <a class="card hero" href="./experiences#navegacion">
+          <img src="./assets/img/navegacion-lago-mallorca.png" alt="Paseo en barco"/>
+          <span>Navegación</span>
+        </a>
+        <a class="card hero" href="./experiences#spa">
+          <img src="./assets/img/spa.webp" alt="Spa"/>
+          <span>Spa</span>
+        </a>
+        <a class="card hero" href="./experiences#tablao">
+          <img src="./assets/img/Flamenca_castanuelas.jpg" alt="Tablao flamenco"/>
+          <span>Tablao flamenco</span>
+        </a>
+        <a class="card hero" href="./experiences#paddle">
+          <img src="./assets/img/paddle surf.jpg" alt="Paddle surf"/>
+          <span>Paddle surf</span>
+        </a>
+        <a class="card hero" href="./experiences#delfines">
+          <img src="./assets/img/delfines.jpg" alt="Avistamiento de delfines"/>
+          <span>Avistamiento de delfines</span>
+        </a>
+        <a class="card hero" href="./experiences#globo">
+          <img src="./assets/img/globo-segovia.webp" alt="Paseo en globo"/>
+          <span>Paseo en globo</span>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- ======= HOTELES (Carrusel) ======= -->
-  <section class="section">
-    <div class="container">
-      <h2>Hoteles</h2>
-      <div class="carousel">
-        <button class="car-arrow left" type="button" data-car="hotelsTrack">‹</button>
-        <div class="car-track" id="hotelsTrack">
-          <!-- Rellenado por JS -->
-        </div>
-        <button class="car-arrow right" type="button" data-car="hotelsTrack">›</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======= FOOTER ======= -->
-  <footer class="site-footer">
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer" id="help">
     <div class="container footer-grid">
       <div>
-        <h4>UNIQUE</h4>
+        <h4>Contacto</h4>
         <ul>
+          <li><a class="wa" href="https://wa.me/34685043871" target="_blank" rel="noopener">+34 685 043 871</a></li>
           <li><a href="tel:+447511356928">+44 (0) 7511 356928</a></li>
-          <li><a class="wa" href="https://web.whatsapp.com" target="_blank" rel="noopener">WhatsApp</a></li>
-          <li><a href="tel:+34685043871">+34 685 043 871</a></li>
           <li><a href="mailto:info@experiencesunique.com">info@experiencesunique.com</a></li>
+          <li><a href="#">Chat</a></li>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">FAQs</a></li>
         </ul>
       </div>
+
       <div>
-        <h4>Quiénes somos</h4>
+        <h4>Inspiración</h4>
         <ul>
-          <li><a href="#">Preguntas frecuentes</a></li>
-          <li><a href="#">Regala Unique</a></li>
+          <li><a href="./hotels">Hoteles</a></li>
+          <li><a href="./destinations.html">Destinos</a></li>
+          <li><a href="./experiences">Experiencias</a></li>
         </ul>
       </div>
+
       <div>
-        <h4>INSPIRACIÓN</h4>
+        <h4>Trabaja con nosotros</h4>
         <ul>
-          <li><a href="hotels">Hoteles</a></li>
-          <li><a href="destinations.html">Destinos</a></li>
-          <li><a href="experiences">Experiencias</a></li>
+          <li><a href="./providers#activities">Proveedores de actividades</a></li>
+          <li><a href="./providers#hotels">Hoteles</a></li>
+          <li><a href="./providers#transport">Transporte</a></li>
         </ul>
       </div>
+
       <div>
-        <h4>TRABAJA CON NOSOTROS</h4>
-        <ul>
-          <li><a href="experiences">Proveedores de actividades</a></li>
-          <li><a href="hotels">Hoteles</a></li>
-          <li><a href="#">Transporte</a></li>
-        </ul>
+        <h4>Escríbenos</h4>
+        <form class="contact" onsubmit="event.preventDefault(); alert('¡Gracias!');">
+          <input type="text" placeholder="Nombre" required/>
+          <input type="email" placeholder="Email" required/>
+          <textarea rows="3" placeholder="Mensaje"></textarea>
+          <button class="btn primary" type="submit">Enviar</button>
+        </form>
       </div>
     </div>
-    <div class="bottom">© <span id="year"></span> Unique</div>
+    <div class="bottom">© <span id="year"></span> Unique Experiences</div>
   </footer>
-
-  <!-- Chat -->
-  <button class="chat-fab" id="chatFab">💬</button>
-  <div class="chatbox" id="chatBox">
-    <div class="chat-head">
-      <strong>Unique Assistant</strong>
-      <button id="chatClose">✕</button>
-    </div>
-    <div class="chat-body" id="chatBody"></div>
-    <div class="chat-send">
-      <input id="chatInput" placeholder="Escribe tu mensaje…"/>
-      <button id="chatSend">Enviar</button>
-    </div>
-  </div>
-
 </body>
 </html>
