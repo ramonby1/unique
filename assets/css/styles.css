@@ -1,12 +1,5 @@
-/* ======= BRAND (de tu PDF, tonos marino) ======= */
 :root{
-  --brand:#0e1326;      /* azul marino del logo */
-  --accent:#1f2a44;     /* marino más claro para botones */
-  --bg:#f6f7fb;         /* gris muy claro */
-  --panel:#ffffff;
-  --ink:#0f172a;
-  --muted:#6b7280;
-  --ring:#e5e7eb;
+  --brand:#0e1326; --accent:#1f2a44; --bg:#f6f7fb; --panel:#fff; --ink:#0f172a; --muted:#6b7280; --ring:#e5e7eb;
 }
 *{box-sizing:border-box}
 html,body{margin:0}
@@ -16,7 +9,7 @@ a{color:var(--brand);text-decoration:none}
 .btn{display:inline-block;padding:12px 18px;border-radius:12px;background:var(--brand);color:#fff;border:0;cursor:pointer}
 .pill{padding:8px 14px;border:1px solid var(--ring);border-radius:999px}
 
-/* ======= Header ======= */
+/* Header */
 .site-header{position:sticky;top:0;background:#fff;border-bottom:1px solid #eee;z-index:9000}
 .header-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
 .logo{font-weight:900;letter-spacing:.5px;font-size:1.1rem;color:var(--brand)}
@@ -29,13 +22,16 @@ a{color:var(--brand);text-decoration:none}
 .dropdown a{display:block;padding:10px 14px}
 .cart-link{padding:8px 12px;border:1px solid #eee;border-radius:12px}
 
-/* ======= Hero ======= */
+/* Hero */
 .hero{position:relative;min-height:88vh;display:flex;align-items:center}
 .hero-solid{background: var(--hero) center/cover no-repeat}
 .hero-inner{text-align:center;width:100%}
-.hero-logo{height:110px;margin:0 auto 14px;display:block;filter:none}
+.hero-logo{height:110px;margin:0 auto 14px;display:block}
 
-/* ======= Search (grid fijo: destino 1fr, fechas 7cm, tema 6cm, personas 2cm, botón) ======= */
+/* Scroll down arrow */
+.down-arrow{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);background:#00000066;color:#fff;border-radius:999px;padding:6px 12px;text-decoration:none}
+
+/* Search grid: destino 1fr, fechas 7cm, tema 6cm, personas 2cm, botón */
 .search{display:grid;grid-template-columns:1fr 7cm 6cm 2cm auto;gap:12px;align-items:end;justify-items:stretch;margin-top:8px}
 .search label{display:flex;flex-direction:column;gap:6px;font-size:.92rem;color:#374151;position:relative}
 .search input,.search select{height:44px;padding:0 12px;border:1px solid var(--ring);border-radius:12px;background:#fff}
@@ -45,7 +41,7 @@ a{color:var(--brand);text-decoration:none}
 .guests-field .icon{transform:scale(0.7)}
 .guests-field input{border:0;outline:0;background:transparent;width:100%}
 
-/* ======= Destinations MEGA (compact) ======= */
+/* Destinations MEGA (compact) */
 .mega-panel{position:absolute;left:0;right:0;top:calc(100% + 8px);background:#fff;border:1px solid #eee;border-radius:14px;box-shadow:0 18px 30px rgba(0,0,0,.12);display:none;z-index:9400}
 .has-mega:hover .mega-panel,.has-mega:focus-within .mega-panel{display:block}
 .mega-inner.form{display:grid;grid-template-columns:160px 1fr}
@@ -53,12 +49,12 @@ a{color:var(--brand);text-decoration:none}
 .menu-plain li a{display:block;padding:8px 10px;border-radius:8px;text-align:left}
 .menu-plain li a:hover,.menu-plain li a.active{background:#eef2ff}
 .mega-col{padding:10px}
-.mega-col.l1.compact .menu-plain li a{padding:6px 10px} /* más compacto verticalmente */
+.mega-col.l1.compact .menu-plain li a{padding:6px 10px}
 .mega-col.l2 h4{margin:6px 0 10px 2px}
 .mega-col.l2 ul.single{columns:1}
 .mega-col.l2 ul.single li a{padding:8px 10px}
 
-/* ======= Date range ======= */
+/* Date range */
 .has-daterange{position:relative}
 .range-panel{position:absolute;left:0;top:calc(100% + 8px);background:#fff;border:1px solid #eee;border-radius:14px;box-shadow:0 18px 30px rgba(0,0,0,.12);padding:12px;display:none;z-index:9500}
 .range-cal{display:grid;grid-template-columns:1fr 1fr;gap:16px}
@@ -73,31 +69,42 @@ a{color:var(--brand);text-decoration:none}
 .day.start,.day.end{background:var(--brand);color:#fff}
 .range-actions{display:flex;justify-content:space-between;margin-top:8px;gap:8px}
 
-/* ======= Secciones “pantalla completa” ======= */
+/* Secciones “pantalla” */
 .section-title{margin:0 0 14px 0}
-.fullvh{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-start;gap:16px;padding:40px 0}
+.pad-top{padding-top:38px}
+.fullscreenish{min-height:100vh}
 .section-alt{background:#fff}
 .grid6{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:220px;gap:16px;padding:0 20px}
+.grid6.grid-2rows{grid-auto-rows:260px}
 .tile{position:relative;border-radius:18px;overflow:hidden;border:1px solid #eee;background:var(--panel)}
 .tile::before{content:"";position:absolute;inset:0;background:var(--img) center/cover no-repeat;transition:transform .35s ease}
 .tile:hover::before{transform:scale(1.03)}
 .tile span{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.55);color:#fff;padding:8px 12px;border-radius:999px;font-weight:700}
-.tile.big{grid-row:span 2}
-.tile.wide{grid-column:span 2}
+.section-cta{text-align:center;margin-top:14px}
 
-/* ======= Contacto ======= */
+/* Hotel carousel */
+.hotel-row{display:flex;gap:16px;overflow-x:auto;padding:0 20px 6px 20px;scroll-snap-type:x mandatory}
+.hotel-card{scroll-snap-align:center;min-width:340px;height:420px;border-radius:22px;overflow:hidden;position:relative;border:1px solid #eee;background:#000}
+.hotel-card::before{content:"";position:absolute;inset:0;background:var(--img) center/cover no-repeat;filter:brightness(.9)}
+.hotel-card .badge{position:absolute;left:12px;top:12px;background:#111;color:#fff;padding:6px 10px;border-radius:999px;font-size:.85rem}
+.hc-body{position:absolute;left:0;right:0;bottom:0;color:#fff;padding:16px 18px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.55))}
+.hc-price{margin-top:6px}
+
+/* Contacto compacto */
 .contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
-.contact-form label{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.contact-compact .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.contact-form label{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
 .contact-form input,.contact-form textarea{border:1px solid var(--ring);border-radius:12px;padding:10px;background:#fff}
+.contact-form textarea{min-height:80px} /* ~mitad de alto */
 
-/* ======= Footer ======= */
+/* Footer */
 .site-footer{background:#0b1022;color:#cfd3e0;padding:34px 0;margin-top:28px}
 .footer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 .site-footer h4{margin:0 0 8px 0;color:#fff}
 .site-footer a{color:#cfd3e0}
 .site-footer small{opacity:.9}
 
-/* ======= Chatbot ======= */
+/* Chatbot */
 .chat-button{position:fixed;right:18px;bottom:18px;background:var(--brand);color:#fff;border:0;border-radius:999px;width:56px;height:56px;box-shadow:0 10px 20px rgba(0,0,0,.18);z-index:9700;cursor:pointer}
 .chatbox{position:fixed;right:18px;bottom:86px;width:320px;background:#fff;border:1px solid #e5e7eb;border-radius:16px;box-shadow:0 20px 30px rgba(0,0,0,.18);display:none;overflow:hidden;z-index:9800}
 .chat-head{display:flex;align-items:center;gap:10px;background:var(--brand);color:#fff;padding:10px}
@@ -108,11 +115,12 @@ a{color:var(--brand);text-decoration:none}
 .msg.bot{background:#eef2ff}
 .msg.user{background:#e8f7e8;align-self:flex-end}
 .chat-form{display:flex;gap:8px;padding:10px;border-top:1px solid #eee}
-.chat-form input{flex:1;border:1px solid #e5e7eb;border-radius:12px;padding:8px 10px}
+.chat-form input{flex:1;border:1px solid var(--ring);border-radius:12px;padding:8px 10px}
 
-/* ======= Responsive ======= */
+/* Responsive */
 @media (max-width:980px){
   .grid6{grid-template-columns:1fr 1fr}
+  .grid6.grid-2rows{grid-auto-rows:220px}
   .search{grid-template-columns:1fr 1fr 1fr auto; grid-auto-rows:auto}
 }
 @media (max-width:640px){
@@ -120,8 +128,8 @@ a{color:var(--brand);text-decoration:none}
   .menu{position:absolute;left:0;right:0;top:64px;background:#fff;border-bottom:1px solid #eee;display:none;flex-direction:column;padding:12px}
   .menu.open{display:flex}
   .hero{min-height:92vh}
-  .search{grid-template-columns:1fr;gap:10px}
   .grid6{grid-template-columns:1fr}
   .footer-grid{grid-template-columns:1fr 1fr}
   .contact-wrap{grid-template-columns:1fr}
+  .contact-compact .row2{grid-template-columns:1fr}
 }
