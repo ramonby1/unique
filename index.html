@@ -2,275 +2,317 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Unique · Personaliza tu viaje</title>
-  <link rel="icon" href="assets/img/icon.png" type="image/png" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Unique — Experiences</title>
+
+  <link rel="icon" type="image/png" href="assets/img/icon.png" />
   <link rel="stylesheet" href="assets/css/styles.css" />
+
+  <script defer src="assets/js/main.js"></script>
 </head>
 <body>
-  <!-- HEADER -->
+
+  <!-- Header -->
   <header class="site-header">
     <div class="container header-inner">
-      <a class="logo" href="/unique/">Unique</a>
-      <nav>
-        <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">☰</button>
-        <ul id="nav-menu" class="menu">
-          <li><a href="custom.html" class="pill">Personaliza tu viaje</a></li>
-          <li class="has-dropdown">
-            <a href="#">Ayuda 24/7</a>
-            <ul class="dropdown">
-              <li><a href="#chatbot">Chat web</a></li>
-              <li><a href="https://wa.me/" target="_blank" rel="noopener">WhatsApp</a></li>
-              <li><a href="tel:+447511356928">Llamada telefónica</a></li>
-            </ul>
-          </li>
-          <li class="has-dropdown">
-            <a href="#" id="lang-current" aria-label="Idioma">ES</a>
-            <ul class="dropdown">
-              <li><a href="#" data-lang="es">Español 🇪🇸</a></li>
-              <li><a href="#" data-lang="en">English 🇬🇧</a></li>
-            </ul>
-          </li>
-          <li><a class="cart-link" href="checkout.html">🛒 Carrito <span id="cart-count">0</span></a></li>
-        </ul>
+      <a class="brand" href="index.html">
+        <img src="assets/img/icon.png" alt="Unique" class="brand-icon" />
+        <span>Unique</span>
+      </a>
+
+      <nav class="top-nav">
+        <a href="#custom" class="nav-link" data-i18n="nav_customize">Personaliza tu viaje</a>
+        <div class="dropdown has-hover">
+          <button class="nav-link btn-ghost" aria-haspopup="true" aria-expanded="false" data-i18n="nav_help">Ayuda 24/7</button>
+          <ul class="menu">
+            <li><a href="#" class="link">Chat web</a></li>
+            <li><a href="#" class="link">WhatsApp</a></li>
+            <li><a href="tel:+447511356928" class="link">+44 (0) 7511 356928</a></li>
+            <li><a href="tel:+34685043871" class="link">+34 685 043 871</a></li>
+          </ul>
+        </div>
+
+        <div class="dropdown has-hover">
+          <button class="nav-link btn-ghost" id="langToggle" aria-haspopup="true" aria-expanded="false">
+            <span id="langFlag">ES</span>
+          </button>
+          <ul class="menu">
+            <li><button class="link lang-item" data-lang="es">ES (Español)</button></li>
+            <li><button class="link lang-item" data-lang="en">EN (English)</button></li>
+          </ul>
+        </div>
+
+        <a class="cart-link" href="#" aria-label="Carrito">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M7 4h-2l-1 2h2l3.6 7.59-1.35 2.44A1.994 1.994 0 0 0 9.8 19h10.2v-2H9.8l1.1-2h7.95a2 2 0 0 0 1.79-1.11l3.24-6.49A1 1 0 0 0 23 5H7zM7 20a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 0a2 2 0 1 0 .001 3.999A2 2 0 0 0 17 20z" fill="currentColor"/></svg>
+          <span data-i18n="cart">Carrito</span> <b id="cartCount">0</b>
+        </a>
       </nav>
     </div>
   </header>
 
-  <!-- HERO (logo + formulario + foto veleros) -->
-  <section class="hero hero-solid" style="--hero:url('assets/img/veleros-mallorca.jpg')">
+  <!-- HERO: solo logo + formulario sobre imagen -->
+  <section class="hero" style="--hero:url('assets/img/veleros-mallorca.jpg')">
     <div class="container hero-inner">
-      <img class="hero-logo" src="assets/img/Logo.png" alt="Unique Experiences" />
-      <form class="search" action="listing.html" method="get">
-        <!-- DESTINO -->
-        <label class="has-mega">
-          <span>Destino</span>
-          <input id="destino" type="text" name="q" autocomplete="off" placeholder="¿A dónde quieres viajar?" />
-          <div class="mega-panel solid" id="form-destinations" role="menu" aria-label="Destinos">
-            <div class="mega-inner form">
-              <aside class="mega-col l1 compact" aria-label="Regiones">
-                <ul id="dest-l1" class="menu-plain"></ul>
-              </aside>
-              <section class="mega-col l2" aria-label="Zonas">
-                <h4 id="dest-l2-title">Selecciona una región</h4>
-                <ul id="dest-l2" class="menu-plain single"></ul>
-              </section>
+      <img src="assets/img/logo.png" alt="Unique Experiences" class="hero-logo" />
+
+      <!-- Formulario -->
+      <form id="searchForm" class="search-grid" autocomplete="off">
+        <!-- Destino -->
+        <label class="field stretch">
+          <span class="label" data-i18n="f_destination">Destino</span>
+          <input id="destInput" type="text" class="input" placeholder="¿A dónde quieres viajar?" data-i18n-ph="ph_where" />
+          <!-- Panel destinos (2 niveles + búsqueda en vivo) -->
+          <div id="destPanel" class="panel destinations">
+            <div class="col col-l">
+              <input id="destFilter" class="mini-search" type="text" placeholder="Filtrar..." />
+              <ul id="destLevel1" class="lvl1"></ul>
+            </div>
+            <div class="col col-r">
+              <ul id="destLevel2" class="lvl2"></ul>
             </div>
           </div>
         </label>
 
-        <!-- FECHAS (rango) -->
-        <label class="has-daterange">
-          <span>Fechas</span>
-          <input id="dates" type="text" readonly placeholder="¿Cuándo?" />
-          <input id="checkin"  name="checkin"  type="hidden" />
-          <input id="checkout" name="checkout" type="hidden" />
-          <div id="date-range" class="range-panel"></div>
+        <!-- Fechas (picker propio rango con 2 meses) -->
+        <label class="field w-7cm">
+          <span class="label" data-i18n="f_dates">Fechas</span>
+          <input id="datesInput" type="text" class="input" placeholder="¿Cuándo?" readonly data-i18n-ph="ph_when" />
+          <div id="datePicker" class="panel datepicker" aria-hidden="true"></div>
         </label>
 
-        <!-- TEMÁTICA -->
-        <label class="has-theme">
-          <span>Temática</span>
-          <select id="theme" name="theme">
-            <option value="">Cualquier temática</option>
-          </select>
+        <!-- Temática -->
+        <label class="field w-6cm">
+          <span class="label" data-i18n="f_theme">Temática</span>
+          <button type="button" id="themeBtn" class="select-like" data-i18n="theme_any">Cualquier temática</button>
+          <ul id="themeMenu" class="panel list compact"></ul>
         </label>
 
-        <!-- PERSONAS -->
-        <label class="guests-narrow has-guests">
-          <span>Personas</span>
-          <div class="guests-field">
-            <span class="icon">👥</span>
-            <input id="guests" type="text" value="2" readonly />
+        <!-- Personas -->
+        <label class="field w-2cm">
+          <span class="label" data-i18n="f_guests">Personas</span>
+          <button type="button" id="guestsBtn" class="select-like">
+            <span class="icon-people" aria-hidden="true"></span>
+            <span id="guestsText">2</span>
+          </button>
+          <div id="guestsPanel" class="panel guests">
+            <div class="row">
+              <div>
+                <b data-i18n="g_adults">Adultos</b>
+                <div class="sub" data-i18n="g_12plus">12+ años</div>
+              </div>
+              <div class="steppers">
+                <button type="button" class="step" data-type="adults" data-op="-">-</button>
+                <span id="gAdults">2</span>
+                <button type="button" class="step" data-type="adults" data-op="+">+</button>
+              </div>
+            </div>
+            <div class="row">
+              <div>
+                <b data-i18n="g_children">Niños</b>
+                <div class="sub" data-i18n="g_under12">Menos de 12</div>
+              </div>
+              <div class="steppers">
+                <button type="button" class="step" data-type="children" data-op="-">-</button>
+                <span id="gChildren">0</span>
+                <button type="button" class="step" data-type="children" data-op="+">+</button>
+              </div>
+            </div>
+            <div class="row">
+              <div>
+                <b data-i18n="g_babies">Bebés</b>
+                <div class="sub" data-i18n="g_under2">Menos de 2</div>
+              </div>
+              <div class="steppers">
+                <button type="button" class="step" data-type="babies" data-op="-">-</button>
+                <span id="gBabies">0</span>
+                <button type="button" class="step" data-type="babies" data-op="+">+</button>
+              </div>
+            </div>
+            <div class="actions">
+              <button type="button" id="guestsOk" class="btn primary" data-i18n="btn_confirm">Confirmar</button>
+            </div>
           </div>
-          <div id="guests-panel" class="guests-panel">
-            <div class="row">
-              <div class="label">Adultos<br><small>12+ años</small></div>
-              <div class="ctrl"><button type="button" data-g="-1" data-k="adults">-</button><span id="gv-adults">2</span><button type="button" data-g="+1" data-k="adults">+</button></div>
-            </div>
-            <div class="row">
-              <div class="label">Niños<br><small>Menos de 12</small></div>
-              <div class="ctrl"><button type="button" data-g="-1" data-k="children">-</button><span id="gv-children">0</span><button type="button" data-g="+1" data-k="children">+</button></div>
-            </div>
-            <div class="row">
-              <div class="label">Bebés<br><small>Menos de 2</small></div>
-              <div class="ctrl"><button type="button" data-g="-1" data-k="babies">-</button><span id="gv-babies">0</span><button type="button" data-g="+1" data-k="babies">+</button></div>
-            </div>
-            <div class="row confirm"><button type="button" id="guests-ok" class="btn">Confirmar</button></div>
-          </div>
         </label>
 
-        <button class="btn" type="submit">Buscar</button>
+        <div class="actions stretch-right">
+          <button type="submit" class="btn primary" data-i18n="btn_search">Buscar</button>
+        </div>
       </form>
     </div>
-    <a href="#top-destinations" class="down-arrow" aria-label="Ir a la siguiente sección">↓</a>
+
+    <a href="#destinos" class="scroll-down" aria-label="Scroll">
+      <span>▼</span>
+    </a>
   </section>
 
-  <!-- PRINCIPALES DESTINOS (2x3) -->
-  <section class="section-alt pad-top fullscreenish" id="top-destinations">
+  <!-- Principales destinos -->
+  <section id="destinos" class="section">
     <div class="container">
-      <h2 class="section-title">Principales destinos</h2>
-    </div>
-    <div class="grid6 grid-2rows">
-      <a class="tile" style="--img:url('https://images.unsplash.com/photo-1526392060635-9d6019884377?q=80&w=1600&auto=format&fit=crop')" href="listing.html?city=Mallorca"><span>Mallorca</span></a>
-      <a class="tile" style="--img:url('https://images.unsplash.com/photo-1529694157871-338dd8f5f8b3?q=80&w=1600&auto=format&fit=crop')" href="listing.html?city=Menorca"><span>Menorca</span></a>
-      <a class="tile" style="--img:url('https://images.unsplash.com/photo-1545134969-8debd725b007?q=80&w=1600&auto=format&fit=crop')" href="listing.html?city=Ibiza"><span>Ibiza</span></a>
-      <a class="tile" style="--img:url('https://images.unsplash.com/photo-1594041680534-3f5573b36ad6?q=80&w=1600&auto=format&fit=crop')" href="listing.html?city=Formentera"><span>Formentera</span></a>
-      <a class="tile" style="--img:url('https://images.unsplash.com/photo-1533681018184-68bd1d883546?q=80&w=1600&auto=format&fit=crop')" href="listing.html?city=Gran%20Canaria"><span>Gran Canaria</span></a>
-      <a class="tile" style="--img:url('https://images.unsplash.com/photo-1528127269322-539801943592?q=80&w=1600&auto=format&fit=crop')" href="listing.html?city=Costa%20Brava"><span>Costa Brava</span></a>
-    </div>
-    <div class="container section-cta">
-      <a class="btn" href="destinos.html">Ver todos los destinos</a>
-    </div>
-    <a href="#top-activities" class="down-arrow">↓</a>
-  </section>
-
-  <!-- ACTIVIDADES -->
-  <section class="pad-top fullscreenish" id="top-activities">
-    <div class="container">
-      <h2 class="section-title">Actividades más destacadas</h2>
-    </div>
-    <div class="grid6 grid-2rows">
-      <a class="tile" style="--img:url('https://images.unsplash.com/photo-1529963183130-c6c4ca2b9b24?q=80&w=1600&auto=format&fit=crop')" href="listing.html?tag=barco"><span>Paseo en barco</span></a>
-      <a class="tile" style="--img:url('https://images.unsplash.com/photo-1473116763249-2faaef81ccda?q=80&w=1600&auto=format&fit=crop')" href="listing.html?tag=flamenco"><span>Tablao flamenco</span></a>
-      <a class="tile" style="--img:url('https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?q=80&w=1600&auto=format&fit=crop')" href="listing.html?tag=paddlesurf"><span>Paddle surf</span></a>
-      <a class="tile" style="--img:url('https://images.unsplash.com/photo-1520986606214-8b456906c813?q=80&w=1600&auto=format&fit=crop')" href="listing.html?tag=espeleologia"><span>Espeleología</span></a>
-      <a class="tile" style="--img:url('https://images.unsplash.com/photo-1501621667575-af81f1f0bacc?q=80&w=1600&auto=format&fit=crop')" href="listing.html?tag=delfines"><span>Avistamiento de delfines</span></a>
-      <a class="tile" style="--img:url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1600&auto=format&fit=crop')" href="listing.html?tag=globo"><span>Paseo en globo</span></a>
-    </div>
-    <div class="container section-cta">
-      <a class="btn" href="experiencias.html">Ver todas las actividades</a>
-    </div>
-    <a href="#hotels" class="down-arrow">↓</a>
-  </section>
-
-  <!-- HOTELES (cards horizontales/carrusel) -->
-  <section class="pad-top section-alt" id="hotels">
-    <div class="container">
-      <h2 class="section-title">Hoteles recomendados</h2>
-    </div>
-    <div class="hotel-row">
-      <article class="hotel-card" style="--img:url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1600&auto=format&fit=crop')">
-        <span class="badge">Top Ventas</span>
-        <div class="hc-body">
-          <h3>Alcudia Bay Resort</h3>
-          <p>Mallorca · Spa & Relax</p>
-          <div class="hc-price">Desde <strong>€129</strong></div>
-        </div>
-      </article>
-      <article class="hotel-card" style="--img:url('https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=1600&auto=format&fit=crop')">
-        <span class="badge">Top Ventas</span>
-        <div class="hc-body">
-          <h3>Menorca Marina Suites</h3>
-          <p>Menorca · Adults Only</p>
-          <div class="hc-price">Desde <strong>€149</strong></div>
-        </div>
-      </article>
-      <article class="hotel-card" style="--img:url('https://images.unsplash.com/photo-1519822471329-23c0a8f2d6d8?q=80&w=1600&auto=format&fit=crop')">
-        <span class="badge">Oferta Flash</span>
-        <div class="hc-body">
-          <h3>Ibiza White Sand</h3>
-          <p>Ibiza · Beachfront</p>
-          <div class="hc-price">Desde <strong>€199</strong></div>
-        </div>
-      </article>
-      <article class="hotel-card" style="--img:url('https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1600&auto=format&fit=crop')">
-        <span class="badge">Top Ventas</span>
-        <div class="hc-body">
-          <h3>Formentera Blue</h3>
-          <p>Formentera · Boutique</p>
-          <div class="hc-price">Desde <strong>€179</strong></div>
-        </div>
-      </article>
-      <article class="hotel-card" style="--img:url('https://images.unsplash.com/photo-1501117716987-c8e002a3c2d2?q=80&w=1600&auto=format&fit=crop')">
-        <span class="badge">Top Ventas</span>
-        <div class="hc-body">
-          <h3>Gran Canaria Heights</h3>
-          <p>Gran Canaria · Family</p>
-          <div class="hc-price">Desde <strong>€109</strong></div>
-        </div>
-      </article>
-    </div>
-    <div class="container section-cta">
-      <a class="btn" href="hoteles.html">Ver todos los hoteles</a>
-    </div>
-    <a href="#contact" class="down-arrow">↓</a>
-  </section>
-
-  <!-- CONTACTO -->
-  <section class="section" id="contact">
-    <div class="container contact-wrap contact-compact">
-      <div>
-        <h3>Contacto</h3>
-        <p><strong>Email:</strong> <a href="mailto:info@experiencesunique.com">info@experiencesunique.com</a></p>
-        <p><strong>Tel (UK):</strong> <a href="tel:+447511356928">+44 (0) 7511 356928</a><br>
-           <strong>Tel (ES):</strong> <a href="tel:+34685043871">+34 685 043 871</a></p>
+      <div class="section-head">
+        <h2 data-i18n="sec_top_dests">Principales destinos</h2>
+        <a class="link" href="destinations.html" data-i18n="see_all">Ver todos</a>
       </div>
-      <form class="contact-form" onsubmit="event.preventDefault();alert('¡Gracias! Te contactaremos en breve.');this.reset();">
-        <div class="row2">
-          <label>Nombre<input required></label>
-          <label>Email<input type="email" required></label>
-        </div>
-        <label>Mensaje<textarea rows="3" required></textarea></label>
-        <button class="btn" type="submit">Enviar</button>
-      </form>
+
+      <div class="grid grid-3x2">
+        <a class="card" href="listing.html?dest=Mallorca">
+          <img src="https://images.unsplash.com/photo-1520975922284-7b14f095901d?q=80&w=1200&auto=format&fit=crop" alt="Mallorca" />
+          <div class="pad"><h3>Mallorca</h3></div>
+        </a>
+        <a class="card" href="listing.html?dest=Menorca">
+          <img src="https://images.unsplash.com/photo-1602935387445-9bf3f94a639a?q=80&w=1200&auto=format&fit=crop" alt="Menorca" />
+          <div class="pad"><h3>Menorca</h3></div>
+        </a>
+        <a class="card" href="listing.html?dest=Ibiza">
+          <img src="https://images.unsplash.com/photo-1600712136996-4a79e9276510?q=80&w=1200&auto=format&fit=crop" alt="Ibiza" />
+          <div class="pad"><h3>Ibiza</h3></div>
+        </a>
+        <a class="card" href="listing.html?dest=Formentera">
+          <img src="https://images.unsplash.com/photo-1652454258713-7c0b0c62a4bf?q=80&w=1200&auto=format&fit=crop" alt="Formentera" />
+          <div class="pad"><h3>Formentera</h3></div>
+        </a>
+        <a class="card" href="listing.html?dest=Gran%20Canaria">
+          <img src="https://images.unsplash.com/photo-1612459281281-9b2d13c0b3e0?q=80&w=1200&auto=format&fit=crop" alt="Gran Canaria" />
+          <div class="pad"><h3>Gran Canaria</h3></div>
+        </a>
+        <a class="card" href="listing.html?dest=Costa%20Brava">
+          <img src="https://images.unsplash.com/photo-1603566234499-5bba5f7b2dfd?q=80&w=1200&auto=format&fit=crop" alt="Costa Brava" />
+          <div class="pad"><h3>Costa Brava</h3></div>
+        </a>
+      </div>
+    </div>
+    <a href="#actividades" class="scroll-next" aria-label="Siguiente">▼</a>
+  </section>
+
+  <!-- Actividades destacadas -->
+  <section id="actividades" class="section alt">
+    <div class="container">
+      <div class="section-head">
+        <h2 data-i18n="sec_top_acts">Actividades más destacadas</h2>
+        <a class="link" href="experiences.html" data-i18n="see_all">Ver todos</a>
+      </div>
+
+      <div class="grid grid-3x2">
+        <a class="card" href="detail.html?exp=boat">
+          <img src="https://images.unsplash.com/photo-1505839673365-e3971f8d9184?q=80&w=1200&auto=format&fit=crop" alt="Paseo en barco" />
+          <div class="pad"><h3 data-i18n="act_boat">Navegación</h3></div>
+        </a>
+        <a class="card" href="detail.html?exp=spa">
+          <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1200&auto=format&fit=crop" alt="Spa" />
+          <div class="pad"><h3>Spa</h3></div>
+        </a>
+        <a class="card" href="detail.html?exp=flamenco">
+          <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop" alt="Tablao flamenco" />
+          <div class="pad"><h3 data-i18n="act_flamenco">Tablao flamenco</h3></div>
+        </a>
+        <a class="card" href="detail.html?exp=paddle">
+          <img src="https://images.unsplash.com/photo-1544551763-7ef83b9b7e2b?q=80&w=1200&auto=format&fit=crop" alt="Paddle surf" />
+          <div class="pad"><h3>Paddle surf</h3></div>
+        </a>
+        <a class="card" href="detail.html?exp=caving">
+          <img src="https://images.unsplash.com/photo-1520975922284-7b14f095901d?q=80&w=1200&auto=format&fit=crop" alt="Espeleología" />
+          <div class="pad"><h3>Espeleología</h3></div>
+        </a>
+        <a class="card" href="detail.html?exp=dolphins">
+          <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=1200&auto=format&fit=crop" alt="Avistamiento de delfines" />
+          <div class="pad"><h3 data-i18n="act_dolphins">Avistamiento de delfines</h3></div>
+        </a>
+      </div>
+    </div>
+    <a href="#hoteles" class="scroll-next" aria-label="Siguiente">▼</a>
+  </section>
+
+  <!-- Hoteles -->
+  <section id="hoteles" class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2 data-i18n="sec_hotels">Hoteles</h2>
+        <a class="link" href="hotels.html" data-i18n="see_all">Ver todos</a>
+      </div>
+
+      <div class="grid grid-4">
+        <a class="hcard" href="detail.html?hotel=1">
+          <img src="https://images.unsplash.com/photo-1496412705862-e0088f16f791?q=80&w=1200&auto=format&fit=crop" alt="Hotel 1" />
+          <div class="pad"><h3>Design Hotel</h3><div class="muted">Mallorca</div></div>
+        </a>
+        <a class="hcard" href="detail.html?hotel=2">
+          <img src="https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?q=80&w=1200&auto=format&fit=crop" alt="Hotel 2" />
+          <div class="pad"><h3>Spa Resort</h3><div class="muted">Andalucía</div></div>
+        </a>
+        <a class="hcard" href="detail.html?hotel=3">
+          <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1200&auto=format&fit=crop" alt="Hotel 3" />
+          <div class="pad"><h3>Seaside Boutique</h3><div class="muted">Costa Brava</div></div>
+        </a>
+        <a class="hcard" href="detail.html?hotel=4">
+          <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=1200&auto=format&fit=crop" alt="Hotel 4" />
+          <div class="pad"><h3>City Chic</h3><div class="muted">Madrid</div></div>
+        </a>
+      </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- Contacto + Footer -->
   <footer class="site-footer">
     <div class="container footer-grid">
-      <div>
+      <div class="col">
         <h4>UNIQUE</h4>
         <ul>
-          <li><a href="about.html">Quiénes somos</a></li>
-          <li><a href="faq.html">Preguntas frecuentes</a></li>
-          <li><a href="gift.html">Regala Unique</a></li>
+          <li><a href="#">Quiénes somos</a></li>
+          <li><a href="#">Preguntas frecuentes</a></li>
+          <li><a href="#">Regala experiencias</a></li>
         </ul>
       </div>
-      <div>
-        <h4>INSPIRACIÓN</h4>
+
+      <div class="col">
+        <h4 data-i18n="footer_insp">INSPIRACIÓN</h4>
         <ul>
-          <li><a href="hoteles.html">Hoteles</a></li>
-          <li><a href="destinos.html">Destinos</a></li>
-          <li><a href="experiencias.html">Experiencias</a></li>
+          <li><a href="hotels.html" data-i18n="menu_hotels">Hoteles</a></li>
+          <li><a href="destinations.html" data-i18n="menu_dests">Destinos</a></li>
+          <li><a href="experiences.html" data-i18n="menu_exps">Experiencias</a></li>
         </ul>
       </div>
-      <div>
-        <h4>TRABAJA CON NOSOTROS</h4>
+
+      <div class="col">
+        <h4 data-i18n="footer_work">TRABAJA CON NOSOTROS</h4>
         <ul>
-          <li><a href="proveedores-actividades.html">Proveedores de actividades</a></li>
-          <li><a href="proveedores-hoteles.html">Hoteles</a></li>
-          <li><a href="proveedores-transporte.html">Transporte</a></li>
+          <li><a href="experiences.html#providers">Proveedores de actividades</a></li>
+          <li><a href="hotels.html#providers">Hoteles</a></li>
+          <li><a href="destinations.html#providers">Transporte</a></li>
         </ul>
       </div>
-      <div>
-        <h4>Contacto</h4>
-        <p><a href="mailto:info@experiencesunique.com">info@experiencesunique.com</a><br>
-        <a href="tel:+447511356928">+44 (0) 7511 356928</a><br>
-        <a href="tel:+34685043871">+34 685 043 871</a></p>
-        <small>© <span id="year"></span> Unique</small>
+
+      <div class="col">
+        <h4 data-i18n="footer_contact">Contacto</h4>
+        <ul>
+          <li><a href="mailto:info@experiencesunique.com">info@experiencesunique.com</a></li>
+          <li><a href="tel:+447511356928">+44 (0) 7511 356928</a></li>
+          <li><a href="tel:+34685043871">+34 685 043 871</a></li>
+        </ul>
+        <form id="contactForm" class="contact">
+          <input type="text" placeholder="Nombre" required />
+          <input type="email" placeholder="Email" required />
+          <textarea rows="3" placeholder="Mensaje" required></textarea>
+          <button class="btn primary" type="submit" data-i18n="btn_send">Enviar</button>
+        </form>
       </div>
     </div>
+    <div class="copy">© <span id="year"></span> Unique Experiences</div>
   </footer>
 
-  <!-- CHATBOT -->
-  <button id="chatbot" class="chat-button" aria-label="Abrir chat">💬</button>
-  <div id="chatbox" class="chatbox" aria-live="polite">
+  <!-- Chatbot burbuja -->
+  <button id="chatBubble" class="chat-bubble" aria-label="Abrir chat">💬</button>
+  <div id="chatBox" class="chat-box" aria-hidden="true">
     <div class="chat-head">
-      <img src="assets/img/icon.png" alt="" />
-      <strong>Unique Assistant</strong>
-      <button id="chat-close">✕</button>
+      <strong>Unique</strong>
+      <button id="chatClose" aria-label="Cerrar">×</button>
     </div>
-    <div class="chat-log" id="chat-log">
-      <div class="msg bot">¡Hola! ¿En qué destino te gustaría una experiencia?</div>
+    <div class="chat-body" id="chatBody">
+      <div class="msg bot">¡Hola! ¿En qué puedo ayudarte?</div>
     </div>
-    <form id="chat-form" class="chat-form">
-      <input id="chat-input" placeholder="Escribe tu mensaje…" autocomplete="off" />
-      <button class="btn" type="submit">Enviar</button>
+    <form id="chatForm" class="chat-input">
+      <input id="chatText" type="text" placeholder="Escribe un mensaje…" />
+      <button class="btn primary" type="submit">Enviar</button>
     </form>
   </div>
 
-  <script src="assets/js/main.js"></script>
 </body>
 </html>
