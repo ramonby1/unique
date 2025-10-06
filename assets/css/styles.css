@@ -27,15 +27,10 @@ linear-gradient(180deg,var(--beige) 0,#fff 18%,#fff 82%,var(--beige) 100%);}
 .top-nav{display:flex;gap:14px;align-items:center}
 .nav-link{color:#111;text-decoration:none}
 .nav-pill{display:flex;gap:8px;align-items:center;background:#fff;border:1px solid #eaeaea;border-radius:999px;padding:8px 12px;cursor:pointer}
-/* Tamaño fijo para banderas en la pill de idioma */
-.nav-pill img{
-  width: 18px;
-  height: 18px;
-  object-fit: cover;
-  vertical-align: middle;
-}
+.lang-flag{width:18px;height:18px;object-fit:cover;vertical-align:middle}
+
 .dropdown{position:relative}
-.dropdown-menu{display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid #eee;border-radius:10px;min-width:210px;box-shadow:var(--ring);padding:6px;margin-top:6px}
+.dropdown-menu{display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid #eee;border-radius:10px;min-width:210px;box-shadow:var(--ring);padding:6px;margin-top:6px;list-style:none}
 .dropdown-menu.right{left:auto;right:0}
 .dropdown:hover>.dropdown-menu{display:block}
 .dropdown-menu li{list-style:none}
@@ -53,17 +48,22 @@ linear-gradient(180deg,var(--beige) 0,#fff 18%,#fff 82%,var(--beige) 100%);}
 .searchbar .field{position:relative}
 .searchbar input{width:100%;height:52px;border:1px solid #e8e8ef;border-radius:14px;padding:0 12px;background:#fff}
 .select{width:100%;height:52px;border:1px solid #e8e8ef;border-radius:14px;padding:0 12px;background:#fff;text-align:left}
-.select-menu{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;border:1px solid #e8e8ef;border-radius:12px;box-shadow:var(--ring);margin-top:6px;max-height:320px;overflow:auto;z-index:5}
+.select-menu{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;border:1px solid #e8e8ef;border-radius:12px;box-shadow:var(--ring);margin-top:6px;max-height:320px;overflow:auto;z-index:5;list-style:none;padding:6px 0}
 .select-menu li{padding:10px 12px;cursor:pointer}
 .select-menu li:hover{background:#f6f7fb}
 
+/* Mantener abierto select/mega al pasar puntero por campo o menú */
+.field:hover .select-menu,
+.field:focus-within .select-menu{display:block}
+
 /* Destino mega */
 .has-suggest .mega{display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid #e8e8ef;border-radius:12px;margin-top:6px;box-shadow:var(--ring);z-index:6;width:min(760px,92vw)}
+.has-suggest.hovering .mega{display:grid}
 .mega{display:grid;grid-template-columns:220px 1fr}
-.mega .lvl1{border-right:1px solid #eee;padding:8px;display:flex;flex-direction:column}
+.mega .lvl1{border-right:1px solid #eee;padding:8px;display:flex;flex-direction:column;list-style:none}
 .mega .lvl1 button{background:#fff;border:0;text-align:left;padding:10px;border-radius:8px;cursor:pointer}
 .mega .lvl1 button:hover{background:#f1f4fb}
-.mega .lvl2{padding:8px;display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
+.mega .lvl2{padding:8px;display:grid;grid-template-columns:repeat(2,1fr);gap:6px;list-style:none}
 .mega .lvl2 button{background:#fff;border:1px solid #eee;padding:10px;border-radius:8px;cursor:pointer;text-align:left}
 
 /* Calendario tipo Civitatis */
@@ -75,6 +75,7 @@ linear-gradient(180deg,var(--beige) 0,#fff 18%,#fff 82%,var(--beige) 100%);}
 .day{height:40px;border:1px solid #eef0f6;border-radius:10px;background:#fff;cursor:pointer}
 .day.sel{background:var(--brand);color:#fff;border-color:var(--brand)}
 .day.rng{background:rgba(254,230,202,.7);border-color:rgba(254,230,202,.9)}
+
 /* Popover guests */
 .popover{display:none;position:absolute;top:100%;right:0;background:#fff;border:1px solid #e8e8ef;border-radius:12px;margin-top:6px;box-shadow:var(--ring);z-index:7;padding:12px;width:260px}
 .popover .row{display:flex;align-items:center;justify-content:space-between;margin:10px 0}
@@ -96,8 +97,8 @@ linear-gradient(180deg,var(--beige) 0,#fff 18%,#fff 82%,var(--beige) 100%);}
 .car-arrow.left{left:-6px}
 .car-arrow.right{right:-6px}
 .car-track{display:flex;gap:14px;overflow:hidden;scroll-behavior:smooth;padding:6px}
-.vcard{min-width:280px;max-width:280px;border-radius:18px;overflow:hidden;border:1px solid #eee;background:#fff;display:flex;flex-direction:column}
-.vcard img{width:100%;height:220px;object-fit:cover}
+.vcard{min-width:320px;max-width:320px;border-radius:18px;overflow:hidden;border:1px solid #eee;background:#fff;display:flex;flex-direction:column}
+.vcard img{width:100%;height:240px;object-fit:cover}
 .vcard .pad{padding:12px}
 
 /* Footer */
