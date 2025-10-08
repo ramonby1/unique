@@ -1,208 +1,77 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Personaliza tu viaje — Unique</title>
-
-  <link rel="icon" type="image/png" href="./assets/img/icon.png"/>
-  <link rel="stylesheet" href="./assets/css/styles.css?v=21"/>
-  <script defer src="./assets/js/main.js?v=21"></script>
+  <link rel="icon" href="./assets/img/icon.png" />
+  <link rel="stylesheet" href="./assets/css/styles.css?v=8" />
+  <script defer src="./assets/js/main.js?v=8"></script>
 </head>
 <body>
-
-  <!-- ===== Header (igual al de home) ===== -->
+  <!-- Header reutilizado -->
   <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="./index.html">
-        <img class="brand-icon" src="./assets/img/icon.png" alt="Unique"/>
-        <span>Unique</span>
-      </a>
-
+    <div class="header-inner wrap">
+      <a class="brand" href="index.html"><img class="brand-icon" src="./assets/img/icon.png" alt="" /><span>Unique</span></a>
       <nav class="top-nav">
-        <a class="nav-link" href="./personaliza.html">Personaliza tu viaje</a>
-
+        <a class="nav-link" href="about.html">Quiénes somos</a>
+        <a class="nav-link active" href="personaliza.html">Personaliza tu viaje</a>
+        <a class="nav-link" href="#">Ayuda 24/7</a>
         <div class="dropdown">
-          <button class="nav-pill" aria-haspopup="true" aria-expanded="false">
-            <span class="flag es"></span><span>ES</span>
-          </button>
+          <button class="nav-pill"><span class="flag-svg es"></span> ES</button>
           <ul class="dropdown-menu right">
-            <li><button class="lang-option" data-lang="es"><span class="flag es"></span> ES (Español)</button></li>
-            <li><button class="lang-option" data-lang="en"><span class="flag en"></span> EN (English)</button></li>
+            <li><button class="lang-opt" data-lang="es"><span class="flag-svg es"></span> ES</button></li>
+            <li><button class="lang-opt" data-lang="en"><span class="flag-svg en"></span> EN</button></li>
           </ul>
         </div>
-
-        <div class="dropdown">
-          <button class="nav-pill" title="Mi cuenta"><span class="person-ico"></span></button>
-          <ul class="dropdown-menu right">
-            <li><button>Iniciar sesión</button></li>
-            <li><button>Crear cuenta</button></li>
-          </ul>
-        </div>
-
-        <a class="nav-pill" href="./checkout.html">🛒 Carrito <b id="cartQty">0</b></a>
       </nav>
     </div>
   </header>
 
-  <!-- ===== Personaliza: A (20%) / B (20%) / Galería (60%) ===== -->
-  <section class="section">
-    <div class="container personalize">
+  <!-- PERSONALIZA layout 20/20/60 -->
+  <section class="section wide bg-beige">
+    <div class="personaliza wrap-full">
       <!-- Sección A -->
-      <aside class="panelA">
-        <label class="lab">Fechas
-          <input id="dateInputP" type="text" readonly placeholder="¿Cuándo?"/>
-        </label>
-        <div class="calendar" id="calendarP"><div class="wrap" id="calWrapP"></div></div>
+      <aside class="p-col a">
+        <label class="lbl">Fechas</label>
+        <div class="field" data-keepopen>
+          <input id="pDate" type="text" placeholder="¿Cuándo?" readonly />
+          <div class="calendar" id="pCalendar"></div>
+        </div>
 
-        <label class="lab">Origen
-          <select id="originSel" class="select native">
-            <option value="" disabled selected>Selecciona aeropuerto</option>
-            <option>Londres - Heathrow (LHR)</option>
-            <option>Londres - Gatwick (LGW)</option>
-            <option>London City Airport (LCY)</option>
-            <option>Manchester (MAN)</option>
-            <option>Birmingham (BHX)</option>
-            <option>Liverpool (LPL)</option>
-          </select>
-        </label>
+        <label class="lbl">Origen</label>
+        <div class="field" data-keepopen>
+          <button type="button" id="originBtn" class="select">Selecciona aeropuerto</button>
+          <ul class="select-menu" id="originMenu"></ul>
+        </div>
 
-        <div class="toggles">
-          <button class="toggle active" id="btnHotels">Hoteles</button>
-          <button class="toggle" id="btnDest">Destino</button>
-          <button class="toggle" id="btnActs">Actividades</button>
+        <div class="stack">
+          <button class="pill tabBtn active" data-tab="hot">Hoteles</button>
+          <button class="pill tabBtn" data-tab="dest">Destino</button>
+          <button class="pill tabBtn" data-tab="act">Actividades</button>
+        </div>
+
+        <div class="mt8">
+          <button class="btn ghost" type="button">Vuelo</button>
         </div>
       </aside>
 
       <!-- Sección B -->
-      <aside class="panelB">
-        <div class="listB" id="listB"></div>
+      <aside class="p-col b">
+        <div class="panel" id="panelB"><!-- opciones generadas por JS según pestaña --></div>
       </aside>
 
-      <!-- Sección Galería -->
-      <main class="gallery" id="gallery"></main>
+      <!-- Galería -->
+      <main class="p-col c">
+        <div class="grid nine" id="gallery">
+          <!-- 9 cards generadas por JS en función de selección -->
+        </div>
+      </main>
     </div>
   </section>
 
   <footer class="site-footer">
-    <div class="container bottom">© <span id="year"></span> Unique Experiences</div>
+    <div class="bottom wrap">© <span id="year"></span> Unique Experiences</div>
   </footer>
-
-  <!-- Script de página (usa utilidades de main.js) -->
-  <script>
-  // ===== datos para B =====
-  const UI_HOTELS = [
-    "Boutique", "Spa & Wellness", "Only Adults", "Familiar",
-    "Todo Incluido", "Urbano", "Playa", "Rural"
-  ];
-  const UI_DEST = {
-    "Baleares": ["Mallorca","Menorca","Ibiza","Formentera"],
-    "Canarias": ["Gran Canaria","Tenerife","Lanzarote","La Gomera"],
-    "Cataluña": ["Costa Brava","Barcelona","Sitges"]
-  };
-  const UI_ACTS = [
-    ["Navegación","navegacion-lago-mallorca.png"],
-    ["Spa","spa.webp"],
-    ["Tablao flamenco","Flamenca_castanuelas.jpg"],
-    ["Paddle surf","paddle surf.jpg"],
-    ["Avistamiento de delfines","delfines.jpg"],
-    ["Paseo en globo","globo-segovia.webp"]
-  ];
-
-  // ===== render panel B por tipo =====
-  const listB = document.getElementById('listB');
-  const gallery = document.getElementById('gallery');
-
-  function renderB_Hotels(){
-    listB.innerHTML = UI_HOTELS.map(t=>`<button class="bItem" data-type="hotel" data-key="${t}">${t}</button>`).join('');
-  }
-  function renderB_Dest(){
-    listB.innerHTML = Object.keys(UI_DEST)
-      .map(k => `<div class="bGroup"><h5>${k}</h5>${
-        UI_DEST[k].map(v=>`<button class="bItem" data-type="dest" data-key="${v}">${v}</button>`).join('')
-      }</div>`).join('');
-  }
-  function renderB_Acts(){
-    listB.innerHTML = UI_ACTS.map(([t,img])=>`<button class="bItem" data-type="act" data-img="${img}" data-key="${t}">${t}</button>`).join('');
-  }
-
-  // ===== render Galería (3x3) =====
-  function tile(img, label){
-    return `
-      <a class="card hero" href="#">
-        <img src="./assets/img/${img}" alt="${label}"/>
-        <span>${label}</span>
-      </a>`;
-  }
-  function showGrid(items){
-    gallery.innerHTML = items.slice(0,9).map(([label,img]) => tile(img,label)).join('');
-  }
-
-  // “hoteles” => usamos un set de imágenes base
-  const STOCK = {
-    hotel: [
-      ["Hotel Boutique","costa-brava-cadaques-noche.jpg"],
-      ["Hotel Spa","spa.webp"],
-      ["Only Adults","costa-brava-cadaques-lejos.jpg"],
-      ["Familiar","gran-canaria-arguineguin.jpg"],
-      ["Todo incluido","formentera-ses-illetes.png"],
-      ["Urbano","mallorca-ciudad-istock.jpg"],
-      ["Playa","ibiza-roca.jpg"],
-      ["Rural","costa-brava-cadaques-barquito.jpg"],
-      ["Boutique Plus","menorca.jpg"]
-    ],
-    dest: {
-      "Mallorca":[["Mallorca","mallorca-ciudad-istock.jpg"],["Playa","ibiza-roca.jpg"],["Barco","navegacion-lago-mallorca.png"],["Rutas","costa-brava-cadaques-lejos.jpg"],["Spa","spa.webp"],["Globo","globo-segovia.webp"]],
-      "Menorca":[["Menorca","menorca.jpg"],["Cala","formentera-ses-illetes.png"],["Rural","costa-brava-cadaques-barquito.jpg"],["Mar","navegacion-lago-mallorca.png"]],
-      "Ibiza":[["Ibiza","ibiza-roca.jpg"],["Spa","spa.webp"],["Barco","navegacion-lago-mallorca.png"]],
-      "Formentera":[["Formentera","formentera-ses-illetes.png"],["Playa","ibiza-roca.jpg"]],
-      "Gran Canaria":[["Gran Canaria","gran-canaria-arguineguin.jpg"],["Delfines","delfines.jpg"]]
-    },
-    act: UI_ACTS.map(([t,img])=>[t,img])
-  };
-
-  // eventos de B
-  listB.addEventListener('click', e=>{
-    const b = e.target.closest('.bItem');
-    if(!b) return;
-    const type = b.dataset.type;
-    if(type === 'hotel'){
-      showGrid(STOCK.hotel);
-    } else if(type === 'dest'){
-      const key = b.dataset.key;
-      showGrid((STOCK.dest[key]||STOCK.hotel));
-    } else if(type === 'act'){
-      const key = b.dataset.key;
-      showGrid([[key,b.dataset.img], ...STOCK.act]);
-    }
-    // marcar activo
-    $$('.bItem', listB).forEach(x=>x.classList.remove('active'));
-    b.classList.add('active');
-  });
-
-  // toggles A
-  const tHotels = document.getElementById('btnHotels');
-  const tDest   = document.getElementById('btnDest');
-  const tActs   = document.getElementById('btnActs');
-
-  function setToggle(btn){
-    [tHotels,tDest,tActs].forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-  }
-  tHotels.addEventListener('click', ()=>{ setToggle(tHotels); renderB_Hotels(); showGrid(STOCK.hotel); });
-  tDest  .addEventListener('click', ()=>{ setToggle(tDest);   renderB_Dest();  showGrid(STOCK.dest["Mallorca"]||STOCK.hotel); });
-  tActs  .addEventListener('click', ()=>{ setToggle(tActs);   renderB_Acts();  showGrid(STOCK.act); });
-
-  // arranque
-  renderB_Hotels(); showGrid(STOCK.hotel);
-
-  // calendario para esta página (instancia separada)
-  window.initCalendar && window.initCalendar({
-    inputSel:'#dateInputP',
-    calSel:'#calendarP',
-    wrapSel:'#calWrapP',
-    locale:'es-ES'
-  });
-  </script>
 </body>
 </html>
