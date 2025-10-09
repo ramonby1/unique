@@ -131,3 +131,21 @@ body{font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Arial,sans-serif;color:
 /* Si tu héroe también tiene clase .section, anúlalo ahí */
 .section.hero,
 .section--hero { padding: 0; }
+/* ===== FIX HERO: sin franja negra + formulario en su sitio ===== */
+
+/* Evita cualquier hueco por línea base y gap del <video> */
+.full-bleed{ line-height: 0 !important; }
+.hero-video{ display: block !important; }
+
+/* La franja negra venía del fondo del overlay: quítalo */
+.hero-overlay{ background: none !important; }
+
+/* Recoloca el formulario debajo del header (66px) con un pequeño respiro */
+.hero-overlay.top{ padding-top: calc(66px + 16px) !important; }
+
+/* Si aún quedara algún fondo entre header y video, fuerza transparencia ahí */
+.site-header + .full-bleed{ background: transparent !important; }
+
+/* Evita que la sección siguiente meta espacio justo después del video */
+.full-bleed + .section{ padding-top: 0 !important; }
+
