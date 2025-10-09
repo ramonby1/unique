@@ -125,9 +125,3 @@ body{font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Arial,sans-serif;color:
   .searchbar{grid-template-columns:1fr;gap:8px}
   .vcard{min-width:82vw;max-width:82vw}
 }
-/* Quitar solo el espacio superior de la sección que sigue al hero */
-.full-bleed + .section { padding-top: 0; }
-
-/* Si tu héroe también tiene clase .section, anúlalo ahí */
-.section.hero,
-.section--hero { padding: 0; }
