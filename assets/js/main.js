@@ -46,6 +46,26 @@ themeMenu.addEventListener('click', (e)=>{
   }
 });
 
+/* ===== Destino select (igual estilo que temática) ===== */
+const destBtn   = $('#destBtn');
+const destMenu  = $('#destMenu');
+const destLabel = $('#destLabel');
+
+const openDest = () => destMenu.style.display = 'block';
+const closeDest = () => destMenu.style.display = 'none';
+
+destBtn.addEventListener('click', openDest);
+destBtn.addEventListener('mouseenter', openDest);
+destMenu.addEventListener('mouseleave', closeDest);
+destMenu.addEventListener('click', (e)=>{
+  if (e.target.matches('li')) {
+    destBtn.dataset.val = e.target.dataset.val;
+    destLabel.textContent = e.target.textContent.trim();
+    closeDest();
+  }
+});
+
+
 /* ===== Calendario de rango (2 meses, robusto cambio de mes) ===== */
 const dateInput = $('#f-dates');
 const cal       = $('#dateCal');
