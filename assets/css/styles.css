@@ -175,3 +175,29 @@ body{font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Arial,sans-serif;color:
   .team-grid{grid-template-columns:1fr}
   .team-card img{height:240px}
 }
+/* ===== Secciones con fondo azul corporativo ===== */
+#sec-themes,
+#sec-hotels {
+  background-color: #10152B;  /* azul oscuro corporativo */
+  color: #fff;               /* texto en blanco para contraste */
+}
+
+/* Ajuste de los títulos dentro */
+#sec-themes h2,
+#sec-hotels h2 {
+  color: #fff;
+}
+
+/* Si tus tarjetas tienen fondo claro, suaviza contraste */
+#sec-themes .vcard,
+#sec-hotels .vcard {
+  background-color: rgba(255, 255, 255, 0.08); /* translúcido sutil */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+/* Los textos dentro de las tarjetas */
+#sec-themes .pad strong,
+#sec-hotels .pad strong {
+  color: #fff;
+}
