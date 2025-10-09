@@ -1,202 +1,252 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/><!doctype html>
-<html lang="es">
-<head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Unique Experiences</title>
+  <title>Unique — Experiences</title>
   <link rel="icon" href="./assets/img/icon.png" />
   <link rel="stylesheet" href="./assets/css/styles.css?v=8" />
   <script defer src="./assets/js/main.js?v=8"></script>
 </head>
-<body data-lang="es">
-  <!-- Header -->
+<body>
+
+  <!-- ===== Header ===== -->
   <header class="site-header">
-    <div class="header-inner wrap">
-      <a class="brand" href="index.html" aria-label="Unique Home">
-        <img class="brand-icon" src="./assets/img/icon.png" alt="" />
+    <div class="wrap header-inner">
+      <a class="brand" href="./index.html">
+        <img class="brand-icon" src="./assets/img/icon.png" alt="Unique" />
         <span>Unique</span>
       </a>
 
       <nav class="top-nav">
-        <a class="nav-link" href="about.html">Quiénes somos</a>
-        <a class="nav-link" href="personaliza.html">Personaliza tu viaje</a>
-        <a class="nav-link" href="#">Ayuda 24/7</a>
+        <a class="nav-link" href="./quienes.html" data-i18n="nav_about">Quiénes somos</a>
+        <a class="nav-link" href="./personaliza.html" data-i18n="nav_customize">Personaliza tu viaje</a>
+        <a class="nav-link" href="#" data-i18n="nav_help">Ayuda 24/7</a>
 
-        <!-- Idioma -->
+        <!-- Idiomas -->
         <div class="dropdown">
-          <button class="nav-pill" id="langBtn">
-            <span class="flag-svg es"></span>
+          <button class="nav-pill">
+            <span class="flag es" aria-hidden="true"></span>
             <span>ES</span>
           </button>
           <ul class="dropdown-menu right">
-            <li><button class="lang-opt" data-lang="es"><span class="flag-svg es"></span> ES (Español)</button></li>
-            <li><button class="lang-opt" data-lang="en"><span class="flag-svg en"></span> EN (English)</button></li>
+            <li><button type="button" class="lang-btn" data-lang="es"><span class="flag es"></span> ES (Español)</button></li>
+            <li><button type="button" class="lang-btn" data-lang="en"><span class="flag en"></span> EN (English)</button></li>
           </ul>
         </div>
 
-        <!-- Cuenta -->
-        <div class="dropdown">
-          <button class="nav-pill" aria-haspopup="menu" aria-expanded="false">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5Zm0 2c-5 0-8 2.5-8 5v1h16v-1c0-2.5-3-5-8-5Z" fill="#10152b"/></svg>
-            <span class="hide-sm">Cuenta</span>
-          </button>
-          <ul class="dropdown-menu right">
-            <li><a href="#">Iniciar sesión</a></li>
-            <li><a href="#">Crear cuenta</a></li>
-          </ul>
-        </div>
-
-        <a class="nav-link cart-link" href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M7 4H3v2h2l2.6 9.59A2 2 0 0 0 9.52 18H19v-2H9.54l-.25-.9L19 13l2-8H6.42L6 3H2v2h3ZM7 20a2 2 0 1 0 2 2 2 2 0 0 0-2-2Zm10 0a2 2 0 1 0 2 2 2 2 0 0 0-2-2Z" fill="#10152b"/></svg> <span>Carrito <b>0</b></span></a>
+        <!-- Carrito -->
+        <a class="nav-link" href="#" id="cartLink">
+          🛒 <span data-i18n="cart">Carrito</span> <span id="cartQty">0</span>
+        </a>
       </nav>
     </div>
   </header>
 
-  <!-- HERO vídeo full screen -->
-  <section class="hero full-bleed">
-    <video class="hero-video" src="./assets/img/video_home_mallorca_30_sec.mp4" autoplay muted loop playsinline poster="./assets/img/veleros-mallorca.jpg"></video>
-    <div class="hero-overlay">
-      <!-- Searchbar estilo Exotica (anchos fijos) -->
-      <form class="searchbar" onsubmit="goPersonaliza(event)">
-        <!-- DESTINO -->
-        <div class="field has-suggest" data-keepopen>
-          <input id="destInput" type="text" placeholder="¿A dónde quieres viajar?" autocomplete="off" readonly />
-          <div class="mega suggest" id="destMega">
-            <div class="lvl1" id="destLvl1"></div>
-            <div class="lvl2" id="destLvl2"></div>
+  <!-- ===== Hero con vídeo ===== -->
+  <section class="full-bleed">
+    <video class="hero-video" src="./assets/img/video_home_mallorca_30_sec.mp4"
+           autoplay muted loop playsinline></video>
+
+    <div class="hero-overlay top">
+      <!-- Formulario estilo Exotica -->
+      <form class="searchbar" id="searchForm" action="./personaliza.html">
+        <!-- Destino -->
+        <div class="field has-suggest">
+          <input id="f-destination" type="text" class="pill" placeholder="¿A dónde quieres viajar?" autocomplete="off" />
+          <!-- mega simple: 3 destinos -->
+          <div class="mega" id="destSuggest">
+            <div class="lvl1">
+              <button type="button" data-group="todo">Destinos</button>
+            </div>
+            <div class="lvl2">
+              <button type="button" data-val="Mallorca">Mallorca</button>
+              <button type="button" data-val="Gran Canaria">Gran Canaria</button>
+              <button type="button" data-val="Ribera del Duero">Ribera del Duero</button>
+            </div>
           </div>
         </div>
 
-        <!-- FECHAS (doble mes, rango) -->
-        <div class="field" data-keepopen>
-          <input id="dateInput" type="text" placeholder="¿Cuándo?" autocomplete="off" readonly />
-          <div class="calendar" id="calendar"></div>
-        </div>
-
-        <!-- TEMÁTICA -->
-        <div class="field" data-keepopen>
-          <button type="button" id="themeSel" class="select">Cualquier temática</button>
-          <ul class="select-menu" id="themeMenu"></ul>
-        </div>
-
-        <!-- GUESTS -->
-        <div class="field guests" data-keepopen>
-          <button type="button" id="guestsBtn" class="select"><svg width="16" height="16" viewBox="0 0 24 24" fill="#10152b"><path d="M16 11a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm-8 0a3 3 0 1 0-3-3 3 3 0 0 0 3 3Zm8 2c-3.33 0-10 1.67-10 5v2h20v-2c0-3.33-6.67-5-10-5Zm-8 1c-2.67 0-8 1.33-8 4v2h8Z"/></svg> <span id="guestsLabel">2</span></button>
-          <div class="popover" id="guestsPop">
-            <div class="row"><strong>Adultos</strong><div class="qty"><button class="minus" data-target="adults">−</button><input id="adults" type="text" value="2" /><button class="plus" data-target="adults">+</button></div></div>
-            <div class="row"><span>Menos de 12</span><div class="qty"><button class="minus" data-target="kids">−</button><input id="kids" type="text" value="0" /><button class="plus" data-target="kids">+</button></div></div>
-            <div class="row"><span>Menos de 2</span><div class="qty"><button class="minus" data-target="babies">−</button><input id="babies" type="text" value="0" /><button class="plus" data-target="babies">+</button></div></div>
-            <div class="act"><button id="guestsOk" type="button">Confirmar</button></div>
+        <!-- Fechas -->
+        <div class="field">
+          <input id="f-dates" class="pill" type="text" placeholder="¿Cuándo?" readonly />
+          <div class="calendar" id="dateCal">
+            <div class="wrap">
+              <div class="cal-col">
+                <h4 id="m1Title"></h4>
+                <div id="m1Grid" class="grid cal"></div>
+              </div>
+              <div class="cal-col">
+                <h4 id="m2Title"></h4>
+                <div id="m2Grid" class="grid cal"></div>
+              </div>
+            </div>
+            <div class="cal-actions">
+              <button type="button" id="calClear" class="btn ghost">Limpiar</button>
+              <button type="button" id="calApply" class="btn primary">Aplicar</button>
+            </div>
           </div>
         </div>
 
-        <button class="btn primary" type="submit">Buscar</button>
+        <!-- Temática -->
+        <div class="field">
+          <button type="button" id="themeBtn" class="select pill" data-val="">
+            <span id="themeLabel">Cualquier temática</span> ▾
+          </button>
+          <ul class="select-menu" id="themeMenu">
+            <li data-val="Gastro">Gastronomía</li>
+            <li data-val="Deportes">Deportes</li>
+            <li data-val="Sol y Playa">Sol y playa</li>
+            <li data-val="Eventos">Conciertos/Eventos</li>
+            <li data-val="Enoturismo">Enoturismo</li>
+            <li data-val="Montaña">Montaña</li>
+          </ul>
+        </div>
+
+        <!-- Personas -->
+        <div class="field">
+          <input id="f-guests" class="pill" type="text" value="2" aria-label="Personas" />
+        </div>
+
+        <!-- Buscar -->
+        <div class="field">
+          <button class="btn primary pill" type="submit">Buscar</button>
+        </div>
       </form>
 
-      <img class="hero-logo" src="./assets/img/logo.png" alt="Unique Experiences" />
+      <!-- Logo -->
+      <img class="hero-logo" src="./assets/img/Logo.png" alt="Unique Experiences" />
     </div>
   </section>
 
-  <!-- ACTIVIDADES RECOMENDADAS (carrusel ancho completo, fondo beige) -->
-  <section class="section wide bg-beige">
-    <div class="section-head">
+  <!-- ===== Sección 1: Actividades recomendadas (carrusel) ===== -->
+  <section class="section section-alt" id="sec-acts" data-bg="beige">
+    <div class="wrap">
       <h2>Actividades recomendadas</h2>
-    </div>
-    <div class="carousel">
-      <button class="car-arrow left" aria-label="prev">‹</button>
-      <div class="car-track" id="carActivities">
-        <!-- Cards generadas por JS con las 11 actividades -->
+      <div class="carousel" data-name="acts">
+        <button class="car-arrow left" aria-label="Anterior">‹</button>
+        <div class="car-track">
+          <!-- 11 actividades, incluí “jet-ski” para Moto acuática -->
+          <article class="vcard">
+            <img src="./assets/img/jet-ski.jpg" alt="Moto acuática" />
+            <div class="pad"><strong>Moto acuática</strong></div>
+          </article>
+          <article class="vcard"><img src="./assets/img/Snorquel.jpg" alt="Snórquel"/><div class="pad"><strong>Snórquel</strong></div></article>
+          <article class="vcard"><img src="./assets/img/Globo.jpg" alt="Globo"/><div class="pad"><strong>Globo</strong></div></article>
+          <article class="vcard"><img src="./assets/img/Bodega.jpg" alt="Bodega"/><div class="pad"><strong>Bodega</strong></div></article>
+          <article class="vcard"><img src="./assets/img/delfines.jpg" alt="Avistamiento de cetáceos"/><div class="pad"><strong>Avistamiento de cetáceos</strong></div></article>
+          <article class="vcard"><img src="./assets/img/tablao-flamenco.jpg" alt="Tablao flamenco"/><div class="pad"><strong>Tablao flamenco</strong></div></article>
+          <article class="vcard"><img src="./assets/img/spa.jpg" alt="Spa"/><div class="pad"><strong>Spa</strong></div></article>
+          <article class="vcard"><img src="./assets/img/yoga.jpg" alt="Yoga"/><div class="pad"><strong>Yoga</strong></div></article>
+          <article class="vcard"><img src="./assets/img/caballo.jpg" alt="Paseo a caballo"/><div class="pad"><strong>Paseo a caballo</strong></div></article>
+          <article class="vcard"><img src="./assets/img/navegacion-yate.jpg" alt="Navegación en yate"/><div class="pad"><strong>Navegación en yate</strong></div></article>
+          <article class="vcard"><img src="./assets/img/paddle-surf.jpg" alt="Paddle surf"/><div class="pad"><strong>Paddle surf</strong></div></article>
+        </div>
+        <button class="car-arrow right" aria-label="Siguiente">›</button>
       </div>
-      <button class="car-arrow right" aria-label="next">›</button>
     </div>
   </section>
 
-  <!-- TEMÁTICAS DE ACTIVIDADES (carrusel, fondo brand) -->
-  <section class="section wide bg-brand">
-    <div class="section-head light">
+  <!-- ===== Sección 2: Temáticas ===== -->
+  <section class="section" id="sec-themes" data-bg="blue">
+    <div class="wrap">
       <h2>Temáticas de actividades</h2>
-    </div>
-    <div class="carousel">
-      <button class="car-arrow left" aria-label="prev">‹</button>
-      <div class="car-track" id="carThemes">
-        <!-- Temáticas generadas por JS -->
+      <div class="carousel" data-name="themes">
+        <button class="car-arrow left" aria-label="Anterior">‹</button>
+        <div class="car-track">
+          <a class="vcard card-link" href="#" data-theme="Gastro">
+            <img src="./assets/img/Gastronomía.jpg" alt="Gastronomía" />
+            <div class="pad"><strong>Gastronomía</strong></div>
+          </a>
+          <a class="vcard card-link" href="#" data-theme="Deportes">
+            <img src="./assets/img/Deportes.jpg" alt="Deportes" />
+            <div class="pad"><strong>Deportes</strong></div>
+          </a>
+          <a class="vcard card-link" href="#" data-theme="Sol y Playa">
+            <img src="./assets/img/Sol-y-playa.jpg" alt="Sol y playa" />
+            <div class="pad"><strong>Sol y playa</strong></div>
+          </a>
+          <a class="vcard card-link" href="#" data-theme="Eventos">
+            <img src="./assets/img/Conciertos.jpg" alt="Eventos" />
+            <div class="pad"><strong>Eventos</strong></div>
+          </a>
+          <a class="vcard card-link" href="#" data-theme="Enoturismo">
+            <img src="./assets/img/Enoturismo.jpg" alt="Enoturismo" />
+            <div class="pad"><strong>Enoturismo</strong></div>
+          </a>
+          <a class="vcard card-link" href="#" data-theme="Montaña">
+            <img src="./assets/img/Montana.jpg" alt="Montaña" />
+            <div class="pad"><strong>Montaña</strong></div>
+          </a>
+        </div>
+        <button class="car-arrow right" aria-label="Siguiente">›</button>
       </div>
-      <button class="car-arrow right" aria-label="next">›</button>
     </div>
   </section>
 
-  <!-- DESTINOS (carrusel, fondo beige) -->
-  <section class="section wide bg-beige">
-    <div class="section-head">
+  <!-- ===== Sección 3: Destinos ===== -->
+  <section class="section section-alt" id="sec-dests" data-bg="beige">
+    <div class="wrap">
       <h2>Destinos</h2>
-    </div>
-    <div class="carousel">
-      <button class="car-arrow left" aria-label="prev">‹</button>
-      <div class="car-track" id="carDestinos">
-        <!-- Destinos generados por JS -->
+      <div class="carousel" data-name="dests">
+        <button class="car-arrow left" aria-label="Anterior">‹</button>
+        <div class="car-track">
+          <article class="vcard"><img src="./assets/img/veleros-mallorca.jpg" alt="Mallorca" /><div class="pad"><strong>Mallorca</strong></div></article>
+          <article class="vcard"><img src="./assets/img/Tenerife.jpg" alt="Gran Canaria" /><div class="pad"><strong>Gran Canaria</strong></div></article>
+          <article class="vcard"><img src="./assets/img/Ribera-del-duero.webp" alt="Ribera del Duero" /><div class="pad"><strong>Ribera del Duero</strong></div></article>
+        </div>
+        <button class="car-arrow right" aria-label="Siguiente">›</button>
       </div>
-      <button class="car-arrow right" aria-label="next">›</button>
     </div>
   </section>
 
-  <!-- HOTELES DESTACADOS / ESTILOS (carrusel, fondo brand) -->
-  <section class="section wide bg-brand">
-    <div class="section-head light">
-      <h2>Estilos de hoteles</h2>
-    </div>
-    <div class="carousel">
-      <button class="car-arrow left" aria-label="prev">‹</button>
-      <div class="car-track" id="carHotels">
-        <!-- Estilos generados por JS -->
+  <!-- ===== Sección 4: Hoteles (estilos) ===== -->
+  <section class="section" id="sec-hotels" data-bg="blue">
+    <div class="wrap">
+      <h2>Hoteles destacados</h2>
+      <div class="carousel" data-name="hotels">
+        <button class="car-arrow left" aria-label="Anterior">‹</button>
+        <div class="car-track">
+          <article class="vcard"><img src="./assets/img/hotel-boutique.jpg" alt="Boutique"/><div class="pad"><strong>Boutique</strong></div></article>
+          <article class="vcard"><img src="./assets/img/hotel-bienestar.jpg" alt="Bienestar"/><div class="pad"><strong>Bienestar</strong></div></article>
+          <article class="vcard"><img src="./assets/img/hotel-jacuzzi.jpg" alt="Jacuzzi privado"/><div class="pad"><strong>Jacuzzi privado</strong></div></article>
+          <article class="vcard"><img src="./assets/img/hotel-pension-completa.jpg" alt="Pensión completa"/><div class="pad"><strong>Pensión completa</strong></div></article>
+          <article class="vcard"><img src="./assets/img/hotel-solo-adultos.jpg" alt="Sólo adultos"/><div class="pad"><strong>Sólo adultos</strong></div></article>
+          <article class="vcard"><img src="./assets/img/hotel-gastro.jpg" alt="Gastro"/><div class="pad"><strong>Gastro</strong></div></article>
+        </div>
+        <button class="car-arrow right" aria-label="Siguiente">›</button>
       </div>
-      <button class="car-arrow right" aria-label="next">›</button>
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- ===== Footer ===== -->
   <footer class="site-footer">
-    <div class="footer-grid wrap">
+    <div class="wrap footer-grid">
       <div>
         <h4>Contacto</h4>
-        <ul>
-          <li><strong>Email:</strong> <a href="mailto:info@experiencesunique.com">info@experiencesunique.com</a></li>
-          <li>
-            <strong>ES:</strong> +34 685 043 871
-            <a class="wa-inline" href="https://wa.me/34685043871" target="_blank" aria-label="WhatsApp ES">
-              <!-- WhatsApp SVG -->
-              <svg width="18" height="18" viewBox="0 0 32 32" fill="none"><path fill="#25D366" d="M16 3C9.37 3 4 8.37 4 15c0 2.22.6 4.3 1.66 6.08L4 29l8.11-1.6A11.93 11.93 0 0 0 16 27c6.63 0 12-5.37 12-12S22.63 3 16 3Z"/><path fill="#fff" d="M22.58 19.82c-.34.96-1.98 1.83-2.77 1.86-.79.03-1.77.5-5.96-1.97-3.98-2.33-6.09-6.75-6.28-7.06-.19-.31-1.5-2.11-1.44-4.04.06-1.93 1.12-2.89 1.49-3.05.37-.16.82-.23 1.08-.2.26.03.83-.15 1.28 1.01.45 1.16 1.53 3.98 1.67 4.27.14.29.23.63.04 1-.19.37-.89 1.26-1.09 1.5-.2.24-.22.42-.04.74.18.32.8 1.33 1.73 2.2 1.19 1.12 2.19 1.48 2.51 1.66.32.18.51.16.7-.05.19-.21.8-.93 1.02-1.25.22-.32.45-.26.74-.15.29.11 4.59 2.16 4.59 2.16s.38.14.24.5Z"/></svg>
-            </a>
-          </li>
-          <li><strong>UK:</strong> +44 (0) 7511 356928</li>
-        </ul>
-
-        <form class="contact">
+        <p>Email: <a href="mailto:info@experiencesunique.com">info@experiencesunique.com</a></p>
+        <p>ES: +34 685 043 871 <a class="wa" href="https://web.whatsapp.com/send?phone=34685043871" target="_blank" rel="noopener" aria-label="WhatsApp">🟢</a></p>
+        <p>UK: +44 (0) 7511 356928</p>
+        <div class="mini-form">
           <input type="email" placeholder="Tu email para novedades" />
-          <button class="btn primary" type="button">Suscribirme</button>
-        </form>
-        <ul>
-          <li><a href="#">Chat</a></li>
-          <li><a href="#">Help Center</a></li>
-          <li><a href="#">FAQs</a></li>
-        </ul>
+          <button class="btn primary">Suscribirme</button>
+        </div>
+        <p><a href="#">Chat</a> · <a href="#">Help Center</a> · <a href="#">FAQs</a></p>
       </div>
 
       <div>
         <h4>Inspiración</h4>
         <ul>
-          <li><a href="#">Hoteles</a></li>
-          <li><a href="#">Destinos</a></li>
-          <li><a href="#">Experiencias</a></li>
+          <li><a href="#sec-hotels">Hoteles</a></li>
+          <li><a href="#sec-dests">Destinos</a></li>
+          <li><a href="#sec-acts">Experiencias</a></li>
         </ul>
       </div>
 
       <div>
         <h4>Unique</h4>
         <ul>
-          <li><a href="about.html">Quiénes somos</a></li>
+          <li><a href="./quienes.html">Quiénes somos</a></li>
           <li><a href="#">Preguntas frecuentes</a></li>
           <li><a href="#">Regala Unique</a></li>
         </ul>
@@ -211,238 +261,10 @@
         </ul>
       </div>
     </div>
-    <div class="bottom wrap">© <span id="year"></span> Unique Experiences</div>
+    <div class="bottom">
+      © <span id="year"></span> Unique Experiences
+    </div>
   </footer>
-</body>
-</html>
 
-  <title>Unique — Experiences</title>
-
-  <link rel="icon" type="image/png" href="./assets/img/icon.png"/>
-  <link rel="stylesheet" href="./assets/css/styles.css?v=20"/>
-  <script defer src="./assets/js/main.js?v=20"></script>
-</head>
-<body>
-
-  <!-- ===== Header ===== -->
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="./index.html">
-        <img class="brand-icon" src="./assets/img/icon.png" alt="Unique"/>
-        <span>Unique</span>
-      </a>
-
-      <nav class="top-nav">
-        <a class="nav-link" href="./personaliza.html">Personaliza tu viaje</a>
-        <a class="nav-link" href="#help">Ayuda 24/7</a>
-
-        <!-- Idioma -->
-        <div class="dropdown">
-          <button class="nav-pill" aria-haspopup="true" aria-expanded="false">
-            <span class="flag es" aria-hidden="true"></span><span>ES</span>
-          </button>
-          <ul class="dropdown-menu right">
-            <li><button class="lang-option" data-lang="es"><span class="flag es"></span> ES (Español)</button></li>
-            <li><button class="lang-option" data-lang="en"><span class="flag en"></span> EN (English)</button></li>
-          </ul>
-        </div>
-
-        <!-- Cuenta -->
-        <div class="dropdown">
-          <button class="nav-pill" aria-haspopup="true" aria-expanded="false" title="Mi cuenta">
-            <span class="person-ico" aria-hidden="true"></span>
-          </button>
-          <ul class="dropdown-menu right">
-            <li><button type="button">Iniciar sesión</button></li>
-            <li><button type="button">Crear cuenta</button></li>
-          </ul>
-        </div>
-
-        <!-- Carrito -->
-        <a class="nav-pill" href="./checkout.html">🛒 Carrito <b id="cartQty">0</b></a>
-      </nav>
-    </div>
-  </header>
-
-  <!-- ===== HERO con vídeo ===== -->
-  <section class="full-bleed">
-    <video class="hero-video" autoplay muted loop playsinline
-      poster="./assets/img/veleros-mallorca.jpg">
-      <source src="./assets/img/video_home_mallorca_30_sec.mp4" type="video/mp4"/>
-    </video>
-
-    <div class="hero-overlay top">
-      <!-- Formulario estilo Exotica (píldoras pegadas) -->
-      <form class="searchbar pills" id="searchForm" action="./personaliza.html">
-        <!-- Destino con mega menú 2 niveles -->
-        <div class="field has-suggest">
-          <input id="destInput" type="text" placeholder="¿A dónde quieres viajar?" autocomplete="off"/>
-          <div class="mega" id="destMega">
-            <div class="lvl1" id="lvl1"></div>
-            <div class="lvl2" id="lvl2"></div>
-          </div>
-        </div>
-
-        <!-- Fecha con calendario a 2 meses y rango -->
-        <div class="field">
-          <input id="dateInput" type="text" readonly placeholder="¿Cuándo?"/>
-          <div class="calendar" id="calendar">
-            <div class="wrap" id="calWrap"></div>
-          </div>
-        </div>
-
-        <!-- Temática sin viñetas -->
-        <div class="field">
-          <button type="button" class="select" id="themeBtn">Cualquier temática <span class="caret">▾</span></button>
-          <ul class="select-menu" id="themeMenu"></ul>
-        </div>
-
-        <!-- Personas -->
-        <div class="field">
-          <button type="button" class="select" id="guestsBtn"><span>2</span></button>
-          <div class="popover" id="guestsPop">
-            <div class="row"><strong>Adultos</strong>
-              <div class="qty">
-                <button type="button" data-target="adults" data-op="-">−</button>
-                <input id="qtyAdults" value="2"/>
-                <button type="button" data-target="adults" data-op="+">+</button>
-              </div>
-            </div>
-            <div class="row"><span>Menos de 12</span>
-              <div class="qty">
-                <button type="button" data-target="kids" data-op="-">−</button>
-                <input id="qtyKids" value="0"/>
-                <button type="button" data-target="kids" data-op="+">+</button>
-              </div>
-            </div>
-            <div class="row"><span>Menos de 2</span>
-              <div class="qty">
-                <button type="button" data-target="babies" data-op="-">−</button>
-                <input id="qtyBabies" value="0"/>
-                <button type="button" data-target="babies" data-op="+">+</button>
-              </div>
-            </div>
-            <div class="act"><button type="button" id="applyGuests">Confirmar</button></div>
-          </div>
-        </div>
-
-        <button class="btn primary search-btn" type="submit">Buscar</button>
-      </form>
-
-      <img class="hero-logo" src="./assets/img/Logo.png" alt="Unique Experiences"/>
-    </div>
-  </section>
-
-  <!-- ===== PRINCIPALES DESTINOS (vignettes grandes 3×2) ===== -->
-  <section class="section" id="destinos">
-    <div class="container">
-      <h2>Principales destinos</h2>
-      <div class="grid six huge">
-        <a class="card hero" href="./destinations.html#mallorca">
-          <img src="./assets/img/mallorca-ciudad-istock.jpg" alt="Mallorca"/>
-          <span>Mallorca</span>
-        </a>
-        <a class="card hero" href="./destinations.html#menorca">
-          <img src="./assets/img/menorca.jpg" alt="Menorca"/>
-          <span>Menorca</span>
-        </a>
-        <a class="card hero" href="./destinations.html#ibiza">
-          <img src="./assets/img/ibiza-roca.jpg" alt="Ibiza"/>
-          <span>Ibiza</span>
-        </a>
-        <a class="card hero" href="./destinations.html#formentera">
-          <img src="./assets/img/formentera-ses-illetes.png" alt="Formentera"/>
-          <span>Formentera</span>
-        </a>
-        <a class="card hero" href="./destinations.html#grancanaria">
-          <img src="./assets/img/gran-canaria-arguineguin.jpg" alt="Gran Canaria"/>
-          <span>Gran Canaria</span>
-        </a>
-        <a class="card hero" href="./destinations.html#costabrava">
-          <img src="./assets/img/costa-brava-cadaques-barquito.jpg" alt="Costa Brava"/>
-          <span>Costa Brava</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== ACTIVIDADES DESTACADAS (vignettes grandes 3×2) ===== -->
-  <section class="section alt" id="actividades">
-    <div class="container">
-      <h2>Actividades más destacadas</h2>
-      <div class="grid six huge">
-        <a class="card hero" href="./experiences#navegacion">
-          <img src="./assets/img/navegacion-lago-mallorca.png" alt="Paseo en barco"/>
-          <span>Navegación</span>
-        </a>
-        <a class="card hero" href="./experiences#spa">
-          <img src="./assets/img/spa.webp" alt="Spa"/>
-          <span>Spa</span>
-        </a>
-        <a class="card hero" href="./experiences#tablao">
-          <img src="./assets/img/Flamenca_castanuelas.jpg" alt="Tablao flamenco"/>
-          <span>Tablao flamenco</span>
-        </a>
-        <a class="card hero" href="./experiences#paddle">
-          <img src="./assets/img/paddle surf.jpg" alt="Paddle surf"/>
-          <span>Paddle surf</span>
-        </a>
-        <a class="card hero" href="./experiences#delfines">
-          <img src="./assets/img/delfines.jpg" alt="Avistamiento de delfines"/>
-          <span>Avistamiento de delfines</span>
-        </a>
-        <a class="card hero" href="./experiences#globo">
-          <img src="./assets/img/globo-segovia.webp" alt="Paseo en globo"/>
-          <span>Paseo en globo</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Footer ===== -->
-  <footer class="site-footer" id="help">
-    <div class="container footer-grid">
-      <div>
-        <h4>Contacto</h4>
-        <ul>
-          <li><a class="wa" href="https://wa.me/34685043871" target="_blank" rel="noopener">+34 685 043 871</a></li>
-          <li><a href="tel:+447511356928">+44 (0) 7511 356928</a></li>
-          <li><a href="mailto:info@experiencesunique.com">info@experiencesunique.com</a></li>
-          <li><a href="#">Chat</a></li>
-          <li><a href="#">Help Center</a></li>
-          <li><a href="#">FAQs</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h4>Inspiración</h4>
-        <ul>
-          <li><a href="./hotels">Hoteles</a></li>
-          <li><a href="./destinations.html">Destinos</a></li>
-          <li><a href="./experiences">Experiencias</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h4>Trabaja con nosotros</h4>
-        <ul>
-          <li><a href="./providers#activities">Proveedores de actividades</a></li>
-          <li><a href="./providers#hotels">Hoteles</a></li>
-          <li><a href="./providers#transport">Transporte</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h4>Escríbenos</h4>
-        <form class="contact" onsubmit="event.preventDefault(); alert('¡Gracias!');">
-          <input type="text" placeholder="Nombre" required/>
-          <input type="email" placeholder="Email" required/>
-          <textarea rows="3" placeholder="Mensaje"></textarea>
-          <button class="btn primary" type="submit">Enviar</button>
-        </form>
-      </div>
-    </div>
-    <div class="bottom">© <span id="year"></span> Unique Experiences</div>
-  </footer>
 </body>
 </html>
