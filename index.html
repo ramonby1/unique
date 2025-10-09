@@ -52,20 +52,17 @@
       <!-- Formulario estilo Exotica -->
       <form class="searchbar" id="searchForm" action="./personaliza.html">
         <!-- Destino -->
-        <div class="field has-suggest">
-          <input id="f-destination" type="text" class="pill" placeholder="¿A dónde quieres viajar?" autocomplete="off" />
-          <!-- mega simple: 3 destinos -->
-          <div class="mega" id="destSuggest">
-            <div class="lvl1">
-              <button type="button" data-group="todo">Destinos</button>
-            </div>
-            <div class="lvl2">
-              <button type="button" data-val="Mallorca">Mallorca</button>
-              <button type="button" data-val="Gran Canaria">Gran Canaria</button>
-              <button type="button" data-val="Ribera del Duero">Ribera del Duero</button>
-            </div>
-          </div>
-        </div>
+       <div class="field">
+  <button type="button" id="destBtn" class="select pill" data-val="">
+    <span id="destLabel">¿A dónde quieres viajar?</span> ▾
+  </button>
+  <ul class="select-menu" id="destMenu">
+    <li data-val="Mallorca">Mallorca</li>
+    <li data-val="Gran Canaria">Gran Canaria</li>
+    <li data-val="Ribera del Duero">Ribera del Duero</li>
+  </ul>
+</div>
+
 
         <!-- Fechas -->
         <div class="field">
