@@ -18,7 +18,7 @@ body{font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Arial,sans-serif;color:
 .section[data-bg="beige"]{background:linear-gradient(180deg,#fff,var(--beige))}
 
 /* ===== Header ===== */
-.site-header{position:sticky;top:0;z-index:50;background:var(--beige);border-bottom:1px solid #e9e9ef}
+.site-header{position:sticky;top:0;z-index:50;background:var(--beige);border-bottom:0;margin-bottom:0;}
 .header-inner{display:flex;align-items:center;justify-content:space-between;height:66px}
 .brand{display:flex;gap:10px;align-items:center;text-decoration:none;color:#111}
 .brand-icon{width:30px;height:30px}
@@ -47,10 +47,10 @@ body{font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Arial,sans-serif;color:
 }
 
 /* ===== Hero ===== */
-.full-bleed{position:relative;min-height:100svh;overflow:hidden}
+.full-bleed{position:relative;min-height:100svh;overflow:hidden;margin:0;padding:0}
 .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .hero-overlay{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:22px;min-height:100svh;background:linear-gradient(180deg,rgba(16,21,43,.15),rgba(16,21,43,.08))}
-.hero-overlay.top{justify-content:flex-start;padding-top:90px}
+.hero-overlay.top{justify-content:flex-start;padding-top:0}
 .hero-logo{width:220px;filter:drop-shadow(0 10px 20px rgba(0,0,0,.2))}
 
 /* ===== Formulario (estilo píldora) ===== */
