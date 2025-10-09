@@ -150,3 +150,29 @@ $('#searchForm').addEventListener('submit', (e)=>{
   // (si quieres pasar params en la URL, aquí)
   // e.g. e.target.action = `./personaliza.html?dest=${encodeURIComponent(destInput.value)}&dates=${encodeURIComponent(dateInput.value)}&theme=${encodeURIComponent(themeBtn.dataset.val||'')}&guests=${encodeURIComponent($('#f-guests').value)}`;
 });
+/* ===== Ajustar altura del hero al vídeo ===== */
+(function () {
+  const hero  = document.querySelector('.full-bleed');
+  const video = document.querySelector('.hero-video');
+
+  if (!hero || !video) return;
+
+  function setHeroHeight() {
+    if (!video.videoWidth || !video.videoHeight) return;
+
+    const ratio  = video.videoHeight / video.videoWidth;
+    const width  = hero.clientWidth;
+    const height = width * ratio;
+
+    hero.style.height = height + 'px';
+  }
+
+  video.addEventListener('loadedmetadata', setHeroHeight);
+  window.addEventListener('resize', setHeroHeight);
+
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(setHeroHeight).observe(hero);
+  }
+
+  setHeroHeight();
+})();
